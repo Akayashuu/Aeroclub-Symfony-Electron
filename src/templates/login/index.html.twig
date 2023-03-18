@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connection</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('connexion') }}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+</head>
+
+<body>
+    <section class="hero is-success is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-4 is-offset-4">
+                    <h3 class="title">Login</h3>
+                    <hr class="login-hr">
+                    <p class="subtitl">Veuillez vous connecter pour continuer.</p>
+                    <div class="box">
+                        <form>
+                            <div class="field">
+                                <div class="control">
+                                    <input id="emailInput" class="input is-large" type="email" placeholder="Votre Email" autofocus="">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input id="passwordInput" class="input is-large" type="password" placeholder="Votre mot de passe">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="checkbox">
+                            </div>
+                            <button type='button' class="button is-block is-info is-large is-fullwidth" id="connectButton">Connection <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                    <div class="notification is-danger" style="display: none;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

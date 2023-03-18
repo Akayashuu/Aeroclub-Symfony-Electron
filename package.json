@@ -1,0 +1,17 @@
+{
+  "name": "symfony-electron-aeroclub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "gulp-connect-php": "^1.0.3"
+  },
+  "devDependencies": {
+    "electron": "^23.1.4",
+    "gulp-connect-php": "^1.0.3"
+  }
+}
