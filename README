@@ -1,55 +1,40 @@
-# README
+# README   
 
-## Application Symfony avec Electron
+## Description  
 
-Ce projet est une application Symfony utilisant Electron pour créer une interface utilisateur de bureau.
+This is a Symfony application with Electron, designed to run on Postgresql 13/11, PHP 8.2, and Node js 18.*. It allows you to run a desktop application powered by Electron while utilizing the server-side capabilities of Symfony.
 
-### Prérequis
+## Installation   
 
-Assurez-vous d'avoir installé les éléments suivants :
+To install this application, please follow the steps below:
 
-- PostgreSQL 13 / 11 
-- PHP 8.2
-- Composer 2.5.5 / 2.4
-- Symfony 6.2
-- Node.js 18.*
+1. Clone the repository: git clone https://github.com/Akayashuu/Aeroclub-Symfony-Electron.git
+2. Install the necessary packages:
+⋅⋅* cd src
+⋅⋅* composer install
+⋅⋅* npm install
+3. Build the application:
+⋅⋅* npm run build
+⋅⋅* npx electron-builder build
 
-### Installation
+## Requirements
 
-1. Clonez le projet :
+Postgresql 13 / 11
+⋅⋅* PHP 8.2
+⋅⋅* Composer 2.5.5 / 2.4
+⋅⋅* Symfony 6.2
+⋅⋅* Node js 18.*
 
-```bash
-   git clone https://github.com/Akayashuu/Aeroclub-Symfony-Electron.git
-```
+## Usage
+
+To start the application, simply run the built executable file generated in the previous step. Once the application is running, you can interact with it as you would with any other desktop application.
+
+## Contributing
+If you would like to contribute to this project, please feel free to submit a pull request with your changes. We welcome all contributions and appreciate your help in making this project better.
+
+## License
+
+This project is licensed under the MIT License.
 
 
 
-
-2. Installez les dépendances PHP :
-
-```bash
-cd src
-composer install
-```
-
-3. Installez les dépendances Node.js :
-
-```bash
-npm install
-cd ..
-npm install
-```
-
-4. Construisez l'application :
- 
-```bash
-npm run build
-```
-
-5. Construisez l'application Electron :
-
-```bash
-npx electron-builder build
-```
-
-Vous pouvez maintenant exécuter l'application en ouvrant le fichier exécutable généré dans le dossier dist.
