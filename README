@@ -1,10 +1,55 @@
-## Symfony Project with Electron
+# README
+
+## Application Symfony avec Electron
+
+Ce projet est une application Symfony utilisant Electron pour créer une interface utilisateur de bureau.
+
+### Prérequis
+
+Assurez-vous d'avoir installé les éléments suivants :
+
+- PostgreSQL 13 / 11 
+- PHP 8.2
+- Composer 2.5.5 / 2.4
+- Symfony 6.2
+- Node.js 18.*
+
+### Installation
+
+1. Clonez le projet :
+
+```bash
+   git clone https://github.com/Akayashuu/Aeroclub-Symfony-Electron.git
+```
 
 
 
 
-Made with 
+2. Installez les dépendances PHP :
 
-(based on) https://github.com/garak/electron-symfony   
-Bulma   
-Symfony   
+```bash
+cd src
+composer install
+```
+
+3. Installez les dépendances Node.js :
+
+```bash
+npm install
+cd ..
+npm install
+```
+
+4. Construisez l'application :
+ 
+```bash
+npm run build
+```
+
+5. Construisez l'application Electron :
+
+```bash
+npx electron-builder build
+```
+
+Vous pouvez maintenant exécuter l'application en ouvrant le fichier exécutable généré dans le dossier dist.
