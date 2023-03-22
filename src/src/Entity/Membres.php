@@ -38,10 +38,10 @@ class Membres
     #[ORM\Column(length: 20)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "numBadge")]
     private ?int $numBadge = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "numQualif")]
     private ?int $numQualif = null;
 
     #[ORM\Column(length: 20)]

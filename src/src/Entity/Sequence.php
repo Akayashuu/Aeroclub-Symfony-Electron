@@ -14,13 +14,13 @@ class Sequence
     #[ORM\Column(name:"numSequence")]
     private ?int $numSequence = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"numMembres")]
     private ?int $numMembres = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"numInstructeur")]
     private ?int $numInstructeur = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"numAvions")]
     private ?int $numAvions = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -38,7 +38,7 @@ class Sequence
     #[ORM\Column]
     private ?float $reductionSemaine = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"numMotif")]
     private ?int $numMotif = null;
 
     #[ORM\Column]

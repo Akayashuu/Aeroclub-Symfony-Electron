@@ -43,7 +43,7 @@ class Instructeurs
     #[ORM\Column(length: 20)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "numBadge")]
     private ?int $numBadge = null;
 
     public function getId(): ?int

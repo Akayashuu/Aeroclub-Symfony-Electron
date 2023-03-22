@@ -11,16 +11,13 @@ class ComptesAc
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
+    #[ORM\Column(name: "numCompte")]
     private ?int $numCompte = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "numMembres")]
     private ?int $numMembres = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "numSeq")]
     private ?int $numSeq = null;
 
     #[ORM\Column(length: 200)]
