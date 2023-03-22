@@ -11,10 +11,7 @@ class Sequence
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
+    #[ORM\Column(name:"numSequence")]
     private ?int $numSequence = null;
 
     #[ORM\Column]
