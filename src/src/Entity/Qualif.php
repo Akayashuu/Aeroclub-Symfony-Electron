@@ -10,10 +10,7 @@ class Qualif
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
+    #[ORM\Column(name:"numQualif")]
     private ?int $numQualif = null;
 
     #[ORM\Column(length: 5)]

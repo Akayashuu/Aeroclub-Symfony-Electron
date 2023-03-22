@@ -10,10 +10,7 @@ class Motifs
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
+    #[ORM\Column(name:"numMotif")]
     private ?int $numMotif = null;
 
     #[ORM\Column(length: 80)]
