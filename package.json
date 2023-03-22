@@ -1,5 +1,6 @@
 {
   "name": "symfony-electron-aeroclub",
+  "author": "shan",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -12,6 +13,19 @@
   },
   "devDependencies": {
     "electron": "^23.1.4",
+    "electron-builder": "^23.6.0",
     "gulp-connect-php": "^1.0.3"
-  }
+  },
+    "build": {
+        "appId": "aeroclub",
+        "productName": "Aeroclub",
+        "asar":false,
+        "directories": {
+            "output": "dist"
+        },
+        "win": {
+            "icon": "icon.png",
+            "target": "msi"
+        }
+    }
 }
