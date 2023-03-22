@@ -10,20 +10,21 @@ To install this application, please follow the steps below:
 
 1. Clone the repository: git clone https://github.com/Akayashuu/Aeroclub-Symfony-Electron.git
 2. Install the necessary packages:
-⋅⋅* cd src
-⋅⋅* composer install
-⋅⋅* npm install
-3. Build the application:
-⋅⋅* npm run build
-⋅⋅* npx electron-builder build
+* npm install
+* cd src   
+* composer install   
+* npm install   
+* npm run build    
+3. Build the application:   
+* npx electron-builder build    
 
 ## Requirements
 
-Postgresql 13 / 11
-⋅⋅* PHP 8.2
-⋅⋅* Composer 2.5.5 / 2.4
-⋅⋅* Symfony 6.2
-⋅⋅* Node js 18.*
+* Postgresql 13 / 11   
+* PHP 8.2   
+* Composer 2.5.5 / 2.4   
+* Symfony 6.2   
+* Node js 18.*   
 
 ## Usage
 
