@@ -17,6 +17,7 @@ To install this application, please follow the steps below:
 * npm run build    
 3. Build the application:   
 * npx electron-builder build    
+4. Add php in environment variables
 
 ## Requirements
 
@@ -24,7 +25,8 @@ To install this application, please follow the steps below:
 * PHP 8.2   
 * Composer 2.5.5 / 2.4   
 * Symfony 6.2   
-* Node js 18.*   
+* Node js 18.* 
+* Microsoft Visual C++ Redistributable 2015 to 2022
 
 ## Usage
 
