@@ -16,11 +16,6 @@ class Badge
     #[ORM\Column(length: 80)]
     private ?string $badge = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumBadge(): ?int
     {
         return $this->numBadge;

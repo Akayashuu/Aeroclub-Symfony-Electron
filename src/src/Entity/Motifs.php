@@ -16,11 +16,6 @@ class Motifs
     #[ORM\Column(length: 80)]
     private ?string $motif = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumMotif(): ?int
     {
         return $this->numMotif;
