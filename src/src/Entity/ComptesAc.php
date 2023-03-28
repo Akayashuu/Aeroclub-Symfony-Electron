@@ -32,11 +32,6 @@ class ComptesAc
     #[ORM\Column]
     private ?float $credit = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumCompte(): ?int
     {
         return $this->numCompte;

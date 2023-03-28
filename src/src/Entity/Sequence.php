@@ -47,11 +47,6 @@ class Sequence
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $forfaitInitialisation = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumSequence(): ?int
     {
         return $this->numSequence;
