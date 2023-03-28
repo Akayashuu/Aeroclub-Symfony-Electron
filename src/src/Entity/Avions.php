@@ -52,11 +52,6 @@ class Avions
     #[ORM\Column(length: 500)]
     private ?string $description = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumAvions(): ?int
     {
         return $this->numAvions;

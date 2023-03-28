@@ -1,25 +1,25 @@
 {
-  "name": "symfony-electron-aeroclub",
-  "author": "shan",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron main.js"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "gulp-connect-php": "^1.0.3"
-  },
-  "devDependencies": {
-    "electron": "^23.1.4",
-    "electron-builder": "^23.6.0",
-    "gulp-connect-php": "^1.0.3"
-  },
+    "name": "symfony-electron-aeroclub",
+    "author": "Sauvage Léo | Akayashuu",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron main.js"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "gulp-connect-php": "^1.0.3"
+    },
+    "devDependencies": {
+        "electron": "^23.1.4",
+        "electron-builder": "^23.6.0",
+        "gulp-connect-php": "^1.0.3"
+    },
     "build": {
         "appId": "aeroclub",
         "productName": "Aeroclub",
-        "asar":false,
+        "asar": false,
         "directories": {
             "output": "dist"
         },
