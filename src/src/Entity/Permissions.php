@@ -16,11 +16,6 @@ class Permissions
     #[ORM\Column]
     private ?bool $IsAdmin = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumMembres(): ?int
     {
         return $this->numMembres;

@@ -1,0 +1,51 @@
+{% extends 'layout/header.html.twig' %}
+{% block title %}Configuration paramètres application{% endblock %}
+
+{% block body %}
+    {% block content %}
+    {{ encore_entry_link_tags('config') }}
+            <div class="container">
+                     <section class="hero is-fullheight ">
+                        <div class="hero-body is-centered">
+                            <div class="container">
+                                    <h3 class="title">Configuration paramètres application</h3>
+                                        <div class="box">
+                                            {{ form_start(form)}}
+                                                <form>
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <label class="label">Utilisateur</label>
+                                                            {{form_widget(form.utilisateur, {'attr':{'class':'input is-large', placeholder:"Utilisateur", id:"inputUser"}})}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <label class="label">Mot de passe</label>
+                                                            {{form_widget(form.motdepasse, {'attr':{'class':'input is-large', placeholder:"Mot de passe", id:"inputPassword"}})}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <label class="label">Adresse Ip</label>
+                                                            {{form_widget(form.adresseIp, {'attr':{'class':'input is-large', placeholder:"Adresse Ip", id:"inputIp"}})}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <label class="label">Secret Key</label>
+                                                            {{form_widget(form.secretKey, {'attr':{'class':'input is-large', placeholder:"Secret Key", id:"secretkeyinput"}})}}
+                                                        </div>
+                                                    </div>
+                                                    {{ form_widget(form.save, {'attr':{'class':'button is-block is-info is-large is-fullwidth'}, 'label': 'Sauvegarder' }) }}
+                                                </form>
+                                            {{ form_end(form)}}
+                                        </div>
+                                    <div class="notification is-danger" style="display: none;">
+                                        
+                                    </div>
+                            </div>
+                        </div>
+                    </section>
+            </div>
+    {% endblock %}
+{% endblock %}

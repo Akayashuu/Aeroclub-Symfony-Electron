@@ -16,11 +16,6 @@ class Qualif
     #[ORM\Column(length: 5)]
     private ?string $qualif = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumQualif(): ?int
     {
         return $this->numQualif;

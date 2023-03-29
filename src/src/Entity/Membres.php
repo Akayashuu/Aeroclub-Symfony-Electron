@@ -83,11 +83,6 @@ class Membres
     #[ORM\Column(length: 200)]
     private ?string $password = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumMembres(): ?int
     {
         return $this->numMembres;

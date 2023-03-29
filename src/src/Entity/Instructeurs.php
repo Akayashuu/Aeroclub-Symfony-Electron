@@ -46,11 +46,6 @@ class Instructeurs
     #[ORM\Column(name: "numBadge")]
     private ?int $numBadge = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNumInstructeur(): ?int
     {
         return $this->numInstructeur;
