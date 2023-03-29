@@ -32,6 +32,12 @@
                                                     </div>
                                                     <div class="field">
                                                         <div class="control">
+                                                            <label class="label">Database</label>
+                                                            {{form_widget(form.database, {'attr':{'class':'input is-large', placeholder:"Database", id:"database"}})}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="control">
                                                             <label class="label">Secret Key</label>
                                                             {{form_widget(form.secretKey, {'attr':{'class':'input is-large', placeholder:"Secret Key", id:"secretkeyinput"}})}}
                                                         </div>
@@ -40,9 +46,13 @@
                                                 </form>
                                             {{ form_end(form)}}
                                         </div>
-                                    <div class="notification is-danger" style="display: none;">
-                                        
-                                    </div>
+                                                                                                                {% for label, messages in app.flashes %}
+                                                    {% for message in messages %}
+                                                        <div class="notification is-danger">
+                                                            {{ message }}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endfor %}
                             </div>
                         </div>
                     </section>

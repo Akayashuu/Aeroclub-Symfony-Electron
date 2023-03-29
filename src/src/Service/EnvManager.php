@@ -3,17 +3,18 @@
 namespace App\Service;
 
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Process\Process;
 
 class EnvManager
 {
 
-    public function updateEnv(string $host, string $port, string $username, string $password, string $databaseName): void
+    static public function updateEnv(string $host, string $port, string $username, string $password, string $databaseName): void
     {
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__.'/../../.env');
         $envVariables = [
             'DATABASE_URL' => sprintf(
-                'postgresql://%s:%s@%s:%s/%s',
+                'postgresql://%s:%s@%s:%s/%s?serverVersion=11&charset=utf8',
                 $username,
                 $password,
                 $host,
@@ -21,9 +22,13 @@ class EnvManager
                 $databaseName
             ),
         ];
-        foreach ($envVariables as $name => $value) {
-            putenv(sprintf('%s=%s', $name, $value));
-            $dotenv->populate([$name => $value]);
-        }
+            $envFile = fopen(__DIR__.'/../../.env', 'r');
+            $envContent = fread($envFile, filesize(__DIR__.'/../../.env'));
+            dump($envContent);
+            fclose($envFile);
+            $envContent = str_replace('DATABASE_URL='.$_ENV["DATABASE_URL"], 'DATABASE_URL='.$envVariables["DATABASE_URL"], $envContent);
+            $envFile = fopen(__DIR__.'/../../.env', 'w');
+            fwrite($envFile, $envContent);
+            fclose($envFile);
     }
 }
