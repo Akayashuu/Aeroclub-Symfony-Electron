@@ -24,7 +24,6 @@ class EnvManager
         ];
             $envFile = fopen(__DIR__.'/../../.env', 'r');
             $envContent = fread($envFile, filesize(__DIR__.'/../../.env'));
-            dump($envContent);
             fclose($envFile);
             $envContent = str_replace('DATABASE_URL='.$_ENV["DATABASE_URL"], 'DATABASE_URL='.$envVariables["DATABASE_URL"], $envContent);
             $envFile = fopen(__DIR__.'/../../.env', 'w');
