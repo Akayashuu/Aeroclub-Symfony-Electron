@@ -30,4 +30,10 @@ class ConnexionController extends AbstractController
         }
         return $this->render('connexion/index.html.twig', []);
     }
+
+    #[Route('/test', name: 'app_test')]
+    public function test(Request $request, ManagerRegistry $em): Response
+    {
+        return $this->render('test/accueil.html.twig', []);
+    }
 }
