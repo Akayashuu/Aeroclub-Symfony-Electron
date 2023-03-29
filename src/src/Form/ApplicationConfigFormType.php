@@ -17,6 +17,7 @@ class ApplicationConfigFormType extends AbstractType
             ->add('utilisateur', TextType::class, ['required' => true])
             ->add('motdepasse', TextType::class, ['required' => true])
             ->add('secretKey', TextType::class, ['required' => true])
+            ->add('database', TextType::class, ['required' => true])
             ->add('save', SubmitType::Class)
 
         ;
