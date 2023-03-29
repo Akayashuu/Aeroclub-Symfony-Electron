@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends 'layout/header.html.twig' %}
+{% block title %}Configuration paramètres application{% endblock %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connection</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            {{ encore_entry_link_tags('connexion') }}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-        {% endblock %}
-
-        {% block javascripts %}
-            <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-</head>
-
-<body>
+{% block body %}
+    {% block content %}
+    {{ encore_entry_link_tags('connexion') }}
     <section class="hero is-success is-fullheight">
         <div class="hero-body">
-            <div class="container has-text-centered">
+            <div class="container">
                 <div class="column is-4 is-offset-4">
-                    <h3 class="title">Login</h3>
+                    <h3 class="title has-text-centered  ">Login</h3>
                     <hr class="login-hr">
-                    <p class="subtitl">Veuillez vous connecter pour continuer.</p>
+                    <p class="subtitle has-text-centered">Veuillez vous connecter pour continuer.</p>
                     <div class="box">
+                        {{ form_start(form)}}
                         <form>
                             <div class="field">
                                 <div class="control">
-                                    <input id="emailInput" class="input is-large" type="email" placeholder="Votre Email" autofocus="">
+                                    <label class="label"><i class="fa-solid fa-envelope"></i> Email</label>
+                                    {{form_widget(form.email, {'attr':{'class':'input is-large', placeholder:"Votre Email", id:"inputUser"}})}}
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input id="passwordInput" class="input is-large" type="password" placeholder="Votre mot de passe">
+                                    <label class="label"><i class="fa-solid fa-key"></i> Mot de passe</label>
+                                    {{form_widget(form.password, {'attr':{'class':'input is-large', placeholder:"Votre mot de passe", id:"inputPassword"}})}}
                                 </div>
                             </div>
                             <div class="field">
@@ -46,13 +33,16 @@
                             <button type='button' class="button is-block is-info is-large is-fullwidth" id="connectButton">Connection <i class="fa fa-sign-in" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <div class="notification is-danger" style="display: none;">
-                        
-                    </div>
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="notification is-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </section>
-
-</body>
-</html>
+    {% endblock %}
+{% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Logic\DatabaseLogic;
 use App\Form\ApplicationConfigFormType;
+use App\Form\LoginFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Service\EnvManager;
@@ -35,7 +36,9 @@ class ConnexionController extends AbstractController
             }
             return $this->render('config/config.html.twig', ['form' => $form->createView()]);
         } else {
-            return $this->render('connexion/index.html.twig', []);
+            $form = $this->createForm(LoginFormType::class);
+            $form->handleRequest($request);
+            return $this->render('connexion/index.html.twig', ['form' => $form->createView()]);
         }
     }
 }
