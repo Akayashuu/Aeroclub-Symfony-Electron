@@ -39,6 +39,7 @@ class DatabaseLogic {
                 return true;
             }
         $connection = DriverManager::getConnection(['url' => $_ENV["DATABASE_URL"]]);
+
         try {
             $sql = 'SELECT 1';
             $stmt = $connection->executeQuery($sql);
@@ -48,6 +49,7 @@ class DatabaseLogic {
                 return true;
             }
         } catch (\Exception $e) {
+            dump($e);
            return true;
         }
         return true;
