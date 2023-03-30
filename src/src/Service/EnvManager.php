@@ -22,13 +22,9 @@ class EnvManager
                 $databaseName
             ),
         ];
-            $envFile = fopen(__DIR__.'/../../.env', 'r');
-            $envContent = fread($envFile, filesize(__DIR__.'/../../.env'));
-            dump($envContent);
-            fclose($envFile);
-            $envContent = str_replace('DATABASE_URL='.$_ENV["DATABASE_URL"], 'DATABASE_URL='.$envVariables["DATABASE_URL"], $envContent);
-            $envFile = fopen(__DIR__.'/../../.env', 'w');
-            fwrite($envFile, $envContent);
-            fclose($envFile);
+        foreach ($envVariables as $name => $value) {
+            putenv(sprintf('%s=%s', $name, $value));
+            $dotenv->populate([$name => $value]);
+        }
     }
 }
