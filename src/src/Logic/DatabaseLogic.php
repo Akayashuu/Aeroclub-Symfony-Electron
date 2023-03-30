@@ -49,7 +49,6 @@ class DatabaseLogic {
                 return true;
             }
         } catch (\Exception $e) {
-            dump($e);
            return true;
         }
         return true;

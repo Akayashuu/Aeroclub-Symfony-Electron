@@ -39,6 +39,17 @@ class MembresRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByEmailAuth($email) 
+    {
+        return $this->createQueryBuilder('me')
+            ->select('me.email','me.password', 'me.numMembres')
+            ->where('me.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Membres[] Returns an array of Membres objects
 //     */
