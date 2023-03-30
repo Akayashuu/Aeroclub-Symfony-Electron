@@ -30,7 +30,8 @@
                             <div class="field">
                                 <label class="checkbox">
                             </div>
-                            <button type='button' class="button is-block is-info is-large is-fullwidth" id="connectButton">Connection <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                            {{ form_widget(form.save, {'attr':{'class':'button is-block is-info is-large is-fullwidth'}, 'label': 'Connection <i class="fa fa-sign-in" aria-hidden="true"></i>', 'label_html':true  }) }}
+                            
                         </form>
                     </div>
                     {% for label, messages in app.flashes %}

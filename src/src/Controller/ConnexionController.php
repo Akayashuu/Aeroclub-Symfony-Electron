@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Logic\DatabaseLogic;
 use App\Form\ApplicationConfigFormType;
 use App\Form\LoginFormType;
+use App\Repository\MembresRepository;
+use App\Security\CustomAuth;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Service\EnvManager;
@@ -17,7 +19,7 @@ use App\Service\EnvManager;
 class ConnexionController extends AbstractController
 {
     #[Route('/', name: 'app_connexion')]
-    public function index(Request $request, ManagerRegistry $em): Response
+    public function index(Request $request, ManagerRegistry $em, MembresRepository $membresRepository): Response
     {
         if(DatabaseLogic::envCheck() || DatabaseLogic::isConnected($em)) {
             $form = $this->createForm(ApplicationConfigFormType::class);
@@ -38,6 +40,18 @@ class ConnexionController extends AbstractController
         } else {
             $form = $this->createForm(LoginFormType::class);
             $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $result = $form->getData();
+                $authLogic = new CustomAuth($result["password"], $result["email"], $membresRepository, $request);
+                if($authLogic->authentification()) {
+                    $authLogic->loadAuthentication();
+                    return $this->redirectToRoute('app_accueil');
+                } else {
+                    $this->addFlash('notice', "Erreur ! Votre mot de passe est incorrect.");
+                    return $this->redirectToRoute('app_connexion');
+                }
+            }
             return $this->render('connexion/index.html.twig', ['form' => $form->createView()]);
         }
     }
