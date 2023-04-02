@@ -63,4 +63,10 @@ class CustomAuth {
         $result = bin2hex(random_bytes($n));
         return $result;
     }
+
+    static function isConnected(Request $request) {
+        $session = $request->getSession();
+        $jwt = $session->get("jwt");
+        return (isset($_COOKIE["auth"]) && isset($jwt) && $jwt == $_COOKIE["auth"]);
+    }
 }
