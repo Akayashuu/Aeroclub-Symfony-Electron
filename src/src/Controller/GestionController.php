@@ -13,4 +13,10 @@ class GestionController extends AbstractController
     {
         return $this->render('gestion/gestion.html.twig', []);
     }
+
+    #[Route('/gestion/avions', name: 'app_show_avions')]
+    public function showAvions(): Response
+    {
+        return $this->render('gestion/show_avions.html.twig', []);
+    }
 }
