@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class LoginFormType extends AbstractType
 {
@@ -14,7 +15,7 @@ class LoginFormType extends AbstractType
     {
         $builder
         ->add('email', TextType::class, ['required' => true])
-        ->add('password', TextType::class, ['required' => true])
+        ->add('password', PasswordType::class, ['required' => true])
         ->add('save', SubmitType::class);
     }
 

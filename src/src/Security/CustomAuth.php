@@ -28,7 +28,7 @@ class CustomAuth {
         $this->data = $this->membreRepository->findByEmailAuth($email)[0] ?? null;
     }
 
-    public function loadAuthentication() {
+    public function loadAuthentication():Response {
         $session = $this->request->getSession();
         $key = $this->getRandomKey();
         $issuedAt   = new \DateTimeImmutable();
@@ -42,12 +42,14 @@ class CustomAuth {
         ];
         $jwt = JWT::encode($data, $key, 'HS256');
         $response = new Response();
-        $cookie = new Cookie("auth", $jwt, time() + time() + (86400), "/");
-        $response->headers->setCookie($cookie);
-        $response->send();
         $session->set('key', $key);
         $session->set('jwt', $jwt);
         $session->set('userid', $this->data["numMembres"]);
+        $cookie = new Cookie("auth", $jwt, time() + (86400), "/");
+        $response->setStatusCode(Response::HTTP_FOUND);
+        $response->headers->set('Location', '/accueil');
+        $response->headers->setCookie($cookie);
+        return $response->send();
     }
     
     public function authentification() {

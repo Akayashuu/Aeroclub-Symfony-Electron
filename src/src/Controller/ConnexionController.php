@@ -21,6 +21,9 @@ class ConnexionController extends AbstractController
     #[Route('/', name: 'app_connexion')]
     public function index(Request $request, ManagerRegistry $em, MembresRepository $membresRepository): Response
     {
+        if(CustomAuth::isConnected($request)){
+            return $this->redirectToRoute('app_accueil');
+        }
         if(DatabaseLogic::envCheck() || DatabaseLogic::isConnected($em)) {
             $form = $this->createForm(ApplicationConfigFormType::class);
             $form->handleRequest($request);
@@ -45,8 +48,7 @@ class ConnexionController extends AbstractController
                 $result = $form->getData();
                 $authLogic = new CustomAuth($result["password"], $result["email"], $membresRepository, $request);
                 if($authLogic->authentification()) {
-                    $authLogic->loadAuthentication();
-                    return $this->redirectToRoute('app_accueil');
+                    return $authLogic->loadAuthentication();
                 } else {
                     $this->addFlash('notice', "Erreur ! Votre mot de passe est incorrect.");
                     return $this->redirectToRoute('app_connexion');
