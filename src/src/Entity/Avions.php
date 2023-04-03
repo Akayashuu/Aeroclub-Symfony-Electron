@@ -64,7 +64,7 @@ class Avions
         return $this;
     }
 
-    public function getTypeAvion(): ?string
+    public function gettype_avion(): ?string
     {
         return $this->type_avion;
     }
@@ -124,7 +124,7 @@ class Avions
         return $this;
     }
 
-    public function getHeuresForfait1(): ?float
+    public function getheures_forfait1(): ?float
     {
         return $this->heures_forfait1;
     }
@@ -136,7 +136,7 @@ class Avions
         return $this;
     }
 
-    public function getHeuresForfait2(): ?float
+    public function getheures_forfait2(): ?float
     {
         return $this->heures_forfait2;
     }
@@ -148,7 +148,7 @@ class Avions
         return $this;
     }
 
-    public function getHeuresForfait3(): ?float
+    public function getheures_forfait3(): ?float
     {
         return $this->heures_forfait3;
     }
@@ -160,7 +160,7 @@ class Avions
         return $this;
     }
 
-    public function getReductionSemaine(): ?float
+    public function getreduction_semaine(): ?float
     {
         return $this->reduction_semaine;
     }

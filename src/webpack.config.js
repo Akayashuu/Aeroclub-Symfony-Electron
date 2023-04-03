@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('avions', './assets/js/avions.js')
     .addStyleEntry('Bulma', './assets/styles/sass/Bulma/bulmaStyles.scss')
     .addStyleEntry("connexion", './assets/styles/connexion.css')
     .addStyleEntry('config', './assets/styles/config.css')

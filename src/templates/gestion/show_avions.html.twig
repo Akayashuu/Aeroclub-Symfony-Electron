@@ -1,1 +1,59 @@
 {% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+<div class="container">
+    <table id="myTable" class="table is-striped is-hoverable is-fullwidth">
+                  <thead>
+                <tr>
+                    <th>Identifiant interne</th>
+                    <th>Type d'avions</th>
+                    <th>Taux</th>
+                    <th>Forfait 1</th>
+                    <th>Forfait 2</th>
+                    <th>Forfait 3</th>
+                    <th>Heures Forfait 1</th>
+                    <th>Heures Forfait 2</th>
+                    <th>Heures Forfait 3</th>
+                    <th>Réduction semaine</th>
+                    <th>Immatriculation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for av in avions %}
+                    <tr>
+                        <td>{{av.numavions}}</td>
+                        <td>{{av.type_avion}}</td>
+                        <td>{{av.taux}}</td>
+                        <td>{{av.forfait1}}</td>
+                        <td>{{av.forfait2}}</td>
+                        <td>{{av.forfait3}}</td>
+                        <td>{{av.heures_forfait1}}</td>
+                        <td>{{av.heures_forfait2}}</td>
+                        <td>{{av.heures_forfait3}}</td>
+                        <td>{{av.reduction_semaine}}</td>
+                        <td>{{av.immatriculation}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Identifiant interne</th>
+                    <th>Type d'avions</th>
+                    <th>Taux</th>
+                    <th>Forfait 1</th>
+                    <th>Forfait 2</th>
+                    <th>Forfait 3</th>
+                    <th>Heures Forfait 1</th>
+                    <th>Heures Forfait 2</th>
+                    <th>Heures Forfait 3</th>
+                    <th>Réduction semaine</th>
+                    <th>Immatriculation</th>
+                </tr>
+            </tfoot>
+    </table>
+    <script>
+      $(document).ready(function() {
+        $('#myTable').DataTable();
+      });
+    </script>
+    </div>
+{% endblock %}
