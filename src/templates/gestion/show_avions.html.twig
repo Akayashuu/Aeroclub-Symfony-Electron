@@ -1,59 +1,147 @@
 {% extends 'layout/gestion_header.html.twig' %}
 {% block body %}
+    {{ encore_entry_script_tags('modal') }}
+<div id="delete-confirmation-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-danger has-text-white">
+            <p class="modal-card-title has-text-white">Confirmation de suppression</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>Êtes-vous sûr de vouloir supprimer cet élément ? Cette action ne peut pas être annulée.</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-danger" id="confirm-delete-modal-button">Supprimer</button>
+            <button class="button" id="cancel-delete-modal-button">Annuler</button>
+        </footer>
+    </div>
+</div>
+
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box has-background-danger has-text-white">
+      <p class="has-text-white">Erreur de permission</p>
+      <p class="has-text-white">Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
 <div class="container">
+    <div class="level">
+        <div class="level-left">
+            <h1 class="title">Liste des avions</h1>
+        </div>
+        <div class="level-right">
+            {% if isAdmin == 1 %}
+                <a href="{{ path('avion_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+            {% else %}
+                <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+            {% endif %}
+        </div>
+    </div>
     <table id="myTable" class="table is-striped is-hoverable is-fullwidth">
-                  <thead>
-                <tr>
-                    <th>Identifiant interne</th>
-                    <th>Type d'avions</th>
-                    <th>Taux</th>
-                    <th>Forfait 1</th>
-                    <th>Forfait 2</th>
-                    <th>Forfait 3</th>
-                    <th>Heures Forfait 1</th>
-                    <th>Heures Forfait 2</th>
-                    <th>Heures Forfait 3</th>
-                    <th>Réduction semaine</th>
-                    <th>Immatriculation</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for av in avions %}
-                    <tr>
-                        <td>{{av.numavions}}</td>
-                        <td>{{av.type_avion}}</td>
-                        <td>{{av.taux}}</td>
-                        <td>{{av.forfait1}}</td>
-                        <td>{{av.forfait2}}</td>
-                        <td>{{av.forfait3}}</td>
-                        <td>{{av.heures_forfait1}}</td>
-                        <td>{{av.heures_forfait2}}</td>
-                        <td>{{av.heures_forfait3}}</td>
-                        <td>{{av.reduction_semaine}}</td>
-                        <td>{{av.immatriculation}}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Identifiant interne</th>
-                    <th>Type d'avions</th>
-                    <th>Taux</th>
-                    <th>Forfait 1</th>
-                    <th>Forfait 2</th>
-                    <th>Forfait 3</th>
-                    <th>Heures Forfait 1</th>
-                    <th>Heures Forfait 2</th>
-                    <th>Heures Forfait 3</th>
-                    <th>Réduction semaine</th>
-                    <th>Immatriculation</th>
-                </tr>
-            </tfoot>
+        <thead>
+            <tr>
+                <th>Identifiant interne</th>
+                <th>Type d'avions</th>
+                <th>Taux</th>
+                <th>Forfait 1</th>
+                <th>Forfait 2</th>
+                <th>Forfait 3</th>
+                <th>Heures Forfait 1</th>
+                <th>Heures Forfait 2</th>
+                <th>Heures Forfait 3</th>
+                <th>Réduction semaine</th>
+                <th>Immatriculation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for av in avions %}
+            <tr>
+                <td>{{ av.numavions }}</td>
+                <td>{{ av.type_avion }}</td>
+                <td>{{ av.taux }}</td>
+                <td>{{ av.forfait1 }}</td>
+                <td>{{ av.forfait2 }}</td>
+                <td>{{ av.forfait3 }}</td>
+                <td>{{ av.heures_forfait1 }}</td>
+                <td>{{ av.heures_forfait2 }}</td>
+                <td>{{ av.heures_forfait3 }}</td>
+                <td>{{ av.reduction_semaine }}</td>
+                <td>{{ av.immatriculation }}</td>
+                <td><div class="field is-grouped">
+                    {% if isAdmin == 1 %}
+                            <div class="control">
+                                <a href="{{ path('avion_edit', {'id': av.numavions}) }}" class="button is-primary is-small">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <span>Modifier</span>
+                                </a>
+                            </div>
+                            <div class="control">
+                            <form action="{{ path('avion_delete', {'id': av.numavions}) }}" method="post" data-modal-target="delete-confirmation-modal">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="button is-danger is-small" id="confirm-delete-button">
+
+                                        <span class="icon is-small">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span>Supprimer</span>
+                                    </button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="control">
+                                <a data-target="modal-js-example" id="js-modal-trigger" class="button is-primary is-small">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <span>Modifier</span>
+                                </a>
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-danger is-small" data-target="modal-js-example" id="js-modal-trigger" >
+                                    <span class="icon is-small">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span>Supprimer</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Identifiant interne</th>
+                <th>Type d'avions</th>
+                <th>Taux</th>
+                <th>Forfait 1</th>
+                <th>Forfait 2</th>
+                <th>Forfait 3</th>
+                <th>Heures Forfait 1</th>
+                <th>Heures Forfait 2</th>
+                <th>Heures Forfait 3</th>
+                <th>Réduction semaine</th>
+                <th>Immatriculation</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
     </table>
     <script>
-      $(document).ready(function() {
-        $('#myTable').DataTable();
-      });
+        $(document).ready(function() {$('#myTable').DataTable(
+            {
+                "lengthMenu": [ [10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "All"] ],
+            }
+        );});
     </script>
-    </div>
+</div>
+
 {% endblock %}
