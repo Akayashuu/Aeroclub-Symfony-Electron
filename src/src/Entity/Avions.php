@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Avions
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue("AUTO")]
     #[ORM\Column(name: "numavions")]
     private ?int $numAvions = null;
 
@@ -64,7 +64,7 @@ class Avions
         return $this;
     }
 
-    public function gettype_avion(): ?string
+    public function getTypeAvion(): ?string
     {
         return $this->type_avion;
     }
@@ -124,7 +124,7 @@ class Avions
         return $this;
     }
 
-    public function getheures_forfait1(): ?float
+    public function getHeuresForfait1(): ?float
     {
         return $this->heures_forfait1;
     }
@@ -136,7 +136,7 @@ class Avions
         return $this;
     }
 
-    public function getheures_forfait2(): ?float
+    public function getHeuresForfait2(): ?float
     {
         return $this->heures_forfait2;
     }
@@ -148,7 +148,7 @@ class Avions
         return $this;
     }
 
-    public function getheures_forfait3(): ?float
+    public function getHeuresForfait3(): ?float
     {
         return $this->heures_forfait3;
     }
@@ -160,7 +160,7 @@ class Avions
         return $this;
     }
 
-    public function getreduction_semaine(): ?float
+    public function getReductionSemaine(): ?float
     {
         return $this->reduction_semaine;
     }

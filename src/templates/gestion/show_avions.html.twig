@@ -63,15 +63,15 @@
             {% for av in avions %}
             <tr>
                 <td>{{ av.numavions }}</td>
-                <td>{{ av.type_avion }}</td>
+                <td>{{ av.TypeAvion }}</td>
                 <td>{{ av.taux }}</td>
                 <td>{{ av.forfait1 }}</td>
                 <td>{{ av.forfait2 }}</td>
                 <td>{{ av.forfait3 }}</td>
-                <td>{{ av.heures_forfait1 }}</td>
-                <td>{{ av.heures_forfait2 }}</td>
-                <td>{{ av.heures_forfait3 }}</td>
-                <td>{{ av.reduction_semaine }}</td>
+                <td>{{ av.HeuresForfait1 }}</td>
+                <td>{{ av.HeuresForfait2 }}</td>
+                <td>{{ av.HeuresForfait3 }}</td>
+                <td>{{ av.ReductionSemaine }}</td>
                 <td>{{ av.immatriculation }}</td>
                 <td><div class="field is-grouped">
                     {% if isAdmin == 1 %}

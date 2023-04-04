@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Avions;
+use App\Form\InsertAvionsFormType;
 use App\Repository\AvionsRepository;
 use App\Repository\PermissionsRepository;
 use App\Security\CustomAuth;
@@ -41,20 +43,43 @@ class GestionController extends AbstractController
     }
 
     #[Route('/gestion/insertAvions', name: 'avion_create')]
-    public function createAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository): Response
+    public function createAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-
+            $form = $this->createForm(InsertAvionsFormType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_avions');
+            }
+            return $this->render('gestion/insert_avions.html.twig', [
+                'form' => $form->createView()
+            ]);
         } else {
             return $this->redirectToRoute('app_connexion');
         }
     }
 
-    #[Route('/gestion/editAvions', name: 'avion_edit')]
-    public function editAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository): Response
+    #[Route('/gestion/editAvions/{id}', name: 'avion_edit')]
+    public function editAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-
+            $avions = $avionsRepository->findOneBy(["numAvions" => $id]);
+            $form = $this->createForm(InsertAvionsFormType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_avions');
+            }
+            return $this->render('gestion/edit_avions.html.twig', [
+                'form' => $form->createView()
+            ]);
         } else {
             return $this->redirectToRoute('app_connexion');
         }
