@@ -4,6 +4,7 @@
 namespace App\Security;
 
 use App\Repository\MembresRepository;
+use App\Repository\PermissionsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -70,5 +71,14 @@ class CustomAuth {
         $session = $request->getSession();
         $jwt = $session->get("jwt");
         return (isset($_COOKIE["auth"]) && isset($jwt) && $jwt == $_COOKIE["auth"]);
+    }
+    
+    static function isAdmin(Request $request, PermissionsRepository $permissionsRepository) {
+        $session = $request->getSession();
+        $memberId = $session->get("userid");
+        $data = $permissionsRepository->findOneBy([
+            "numMembres" => $memberId
+        ]); 
+        return $data != null ? $data->isIsAdmin() : false;
     }
 }

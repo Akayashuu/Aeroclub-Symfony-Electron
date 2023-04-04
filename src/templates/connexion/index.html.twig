@@ -33,6 +33,7 @@
                             {{ form_widget(form.save, {'attr':{'class':'button is-block is-info is-large is-fullwidth'}, 'label': 'Connection <i class="fa fa-sign-in" aria-hidden="true"></i>', 'label_html':true  }) }}
                             
                         </form>
+                        {{ form_end(form) }}
                     </div>
                     {% for label, messages in app.flashes %}
                         {% for message in messages %}

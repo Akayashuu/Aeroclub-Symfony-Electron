@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Avions
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue("AUTO")]
     #[ORM\Column(name: "numavions")]
     private ?int $numAvions = null;
 

@@ -1,0 +1,131 @@
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {% block content %}
+    <style>
+        input::placeholder {
+            color: gray !important;
+        }
+    </style>
+       <div class="container">
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Type d'avion</label>
+                            <div class="control">
+                                {{ form_widget(form.type_avion, {'attr': {'class': 'input', 'placeholder': 'Type d\'avion'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Taux</label>
+                            <div class="control">
+                                {{ form_widget(form.taux, {'attr': {'class': 'input', 'placeholder': 'Taux'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Forfait 1</label>
+                            <div class="control">
+                                {{ form_widget(form.forfait1, {'attr': {'class': 'input', 'placeholder': 'Forfait 1'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Forfait 2</label>
+                            <div class="control">
+                                {{ form_widget(form.forfait2, {'attr': {'class': 'input', 'placeholder': 'Forfait 2'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Forfait 3</label>
+                            <div class="control">
+                                {{ form_widget(form.forfait3, {'attr': {'class': 'input', 'placeholder': 'Forfait 3'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Heures forfait 1</label>
+                            <div class="control">
+                                {{ form_widget(form.heures_forfait1, {'attr': {'class': 'input', 'placeholder': 'Heures forfait 1'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Heures forfait 2</label>
+                            <div class="control">
+                                {{ form_widget(form.heures_forfait2, {'attr': {'class': 'input', 'placeholder': 'Heures forfait 2'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Heures forfait 3</label>
+                            <div class="control">
+                                {{ form_widget(form.heures_forfait3, {'attr': {'class': 'input', 'placeholder': 'Heures forfait 3'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Réduction semaine</label>
+                            <div class="control">
+                                {{ form_widget(form.reduction_semaine, {'attr': {'class': 'input', 'placeholder': 'Réduction semaine'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Immatriculation</label>
+                            <div class="control">
+                                {{ form_widget(form.immatriculation, {'attr': {'class': 'input', 'placeholder': 'Immatriculation'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Image</label>
+                            <div class="control">
+                                {{ form_widget(form.image, {'attr': {'class': 'input', 'placeholder': 'URL de l\'image'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control">
+                                {{ form_widget(form.name, {'attr': {'class': 'input', 'placeholder': 'Nom de l\'avion'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-full">
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                {{ form_widget(form.description, {'attr': {'class': 'textarea', 'placeholder': 'Description de l\'avion'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-pen"></i></span><span>Modifier</span>', 'label_html':true  }) }}
+            {{ form_end(form) }}
+        </div>
+    {% endblock %}
+{% endblock %}
