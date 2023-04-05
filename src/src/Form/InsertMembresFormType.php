@@ -33,15 +33,79 @@ class InsertMembresFormType extends AbstractType
             ->add('profession',  TextType::class, ['required' => true])
             ->add('lieuNaissance',  TextType::class, ['required' => true])
             ->add('carteFederal',  TextType::class, ['required' => true])
-            ->add('dateNaissance',  DateType::class, ['required' => true])
-            ->add('dateAttestation',  DateType::class, ['required' => true])
-            ->add('dateTheoriqueBB',  DateType::class, ['required' => true])
-            ->add('dateTheoriquePPLA',  DateType::class, ['required' => true])
-            ->add('dateBB',  DateType::class, ['required' => true])
-            ->add('datePPLA',  DateType::class, ['required' => true])
+            ->add('dateNaissance',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date De Naissance'
+                ]
+            ])
+            ->add('dateAttestation',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date D\'Attestation'
+                ]
+            ])
+            ->add('dateTheoriqueBB',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date Théorique du BB'
+                ]
+            ])
+            ->add('dateTheoriquePPLA', DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date Théorique du PPLA'
+                ]
+            ])
+            ->add('dateBB',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date du BB'
+                ]
+            ])
+            ->add('datePPLA',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date du PPLA'
+                ]
+            ])
             ->add('numeroBB',  TextType::class, ['required' => true])
             ->add('numeroPPLA',  TextType::class, ['required' => true])
-            ->add('dateInscription',  DateType::class, ['required' => true])
+            ->add('dateInscription',  DateType::class, [
+                'required' => true,
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'type' => 'date',
+                    'placeholder' => 'Date d\'inscription'
+                ]
+            ])
             ->add('password',  TextType::class, ['required' => true])
             ->add('save', SubmitType::class)
         ;

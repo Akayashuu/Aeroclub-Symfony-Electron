@@ -84,7 +84,7 @@ class GestionController extends AbstractController
                 return $this->redirectToRoute('app_show_avions');
             }
             return $this->render('gestion/edit_avions.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
         } else {
             return $this->redirectToRoute('app_connexion');
@@ -192,8 +192,7 @@ class GestionController extends AbstractController
             if ($form->isSubmitted() && $form->isValid())
             {
                 $registration = $form->getData();
-                $registration["password"] = password_hash($registration["password"], PASSWORD_DEFAULT);
-                dump($registration);
+                $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
                 $em ->persist($registration);
                 $em->flush();
                 return $this->redirectToRoute('app_show_membres');
@@ -223,7 +222,7 @@ class GestionController extends AbstractController
                 return $this->redirectToRoute('app_show_membres');
             }
             return $this->render('gestion/edit_membres.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
         } else {
             return $this->redirectToRoute('app_connexion');
