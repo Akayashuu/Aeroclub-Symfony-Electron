@@ -10,7 +10,7 @@ class Permissions
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "numMembres")]
+    #[ORM\Column(name: "num_membres")]
     private ?int $numMembres = null;
 
     #[ORM\Column]

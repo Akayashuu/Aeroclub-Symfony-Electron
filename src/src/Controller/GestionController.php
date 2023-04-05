@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Avions;
+use App\Entity\Membres;
 use App\Form\InsertAvionsFormType;
+use App\Form\InsertMembresFormType;
 use App\Repository\AvionsRepository;
+use App\Repository\MembresRepository;
 use App\Repository\PermissionsRepository;
 use App\Security\CustomAuth;
 use Doctrine\ORM\EntityManagerInterface;
@@ -102,4 +105,82 @@ class GestionController extends AbstractController
         }
     }
 
+    #[Route('/gestion/membres', name: 'app_show_membres')]
+    public function showMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $membresData = $membresRepository->findAll();
+            return $this->render('gestion/show_membres.html.twig', [
+                "membres" => $membresData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+
+    #[Route('/gestion/insertMembres', name: 'membres_create')]
+    public function createMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $form = $this->createForm(InsertMembresFormType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $registration["password"] = password_hash($registration["password"], PASSWORD_DEFAULT);
+                dump($registration);
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_membres');
+            }
+            return $this->render('gestion/insert_membres.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editMembres/{id}', name: 'membres_edit')]
+    public function editMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $avions = $membresRepository->findOneBy(["numMembres" => $id]);
+            $avions->setPassword("");
+            $form = $this->createForm(InsertMembresFormType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_membres');
+            }
+            return $this->render('gestion/edit_membres.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/deleteMembres/{id}', name: 'membres_delete')]
+    public function deleteMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $Avions = $membresRepository->findOneBy(["numMembres" => $id]);
+            if($Avions || $id != null) {
+                $entityManager->remove($Avions);
+                $entityManager->flush();
+                return new JsonResponse(array('success' => true));
+            } else {
+                return new JsonResponse(array('success' => false));
+            }
+        } else {
+            return new JsonResponse(array('success' => false));
+        }
+    }
 }

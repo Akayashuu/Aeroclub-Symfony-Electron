@@ -48,7 +48,7 @@ class ConnexionController extends AbstractController
                 $result = $form->getData();
                 $authLogic = new CustomAuth($result["password"], $result["email"], $membresRepository, $request);
                 if($authLogic->authentification()) {
-                    return $authLogic->loadAuthentication();
+                    $authLogic->loadAuthentication();
                 } else {
                     $this->addFlash('notice', "Erreur ! Votre mot de passe est incorrect.");
                     return $this->redirectToRoute('app_connexion');
