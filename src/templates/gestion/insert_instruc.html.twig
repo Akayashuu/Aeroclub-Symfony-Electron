@@ -1,0 +1,114 @@
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {% block content %}
+    <style>
+        input::placeholder {
+            color: gray !important;
+        }
+    </style>
+       <div class="container">
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control">
+                                {{ form_widget(form.nom, {'attr': {'class': 'input', 'placeholder': 'Nom'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Prénom</label>
+                            <div class="control">
+                                {{ form_widget(form.prenom, {'attr': {'class': 'input', 'placeholder': 'Prénom'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Num Civil</label>
+                            <div class="control">
+                                {{ form_widget(form.numCivil, {'attr': {'class': 'input', 'placeholder': 'Num Civil'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Taux instructeur</label>
+                            <div class="control">
+                                {{ form_widget(form.tauxInstructeur, {'attr': {'class': 'input', 'placeholder': 'Taux instructeur'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Adresse</label>
+                            <div class="control">
+                                {{ form_widget(form.adresse, {'attr': {'class': 'input', 'placeholder': 'Adresse'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Code Postal</label>
+                            <div class="control">
+                                {{ form_widget(form.codePostal, {'attr': {'class': 'input', 'placeholder': 'Code postal'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Ville</label>
+                            <div class="control">
+                                {{ form_widget(form.ville, {'attr': {'class': 'input', 'placeholder': 'Ville'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Teléphone</label>
+                            <div class="control">
+                                {{ form_widget(form.tel, {'attr': {'class': 'input', 'placeholder': 'Téléphone'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Fax</label>
+                            <div class="control">
+                                {{ form_widget(form.fax, {'attr': {'class': 'input', 'placeholder': 'Fax'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">E-mail</label>
+                            <div class="control">
+                                {{ form_widget(form.email, {'attr': {'class': 'input', 'placeholder': 'E-mail'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Numéro du Badge</label>
+                            <div class="control">
+                                {{ form_widget(form.numBadge, {'attr': {'class': 'input', 'placeholder': 'Numéro du badge'}}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-plus"></i></span><span>Ajouter</span>', 'label_html':true  }) }}
+            {{ form_end(form) }}
+        </div>
+    {% endblock %}
+{% endblock %}
