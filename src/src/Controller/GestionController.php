@@ -108,6 +108,20 @@ class GestionController extends AbstractController
         }
     }
 
+    #[Route('/gestion/instructeurs', name: 'app_show_instructeur')]
+    public function showInstructeur(Request $request, InstructeursRepository $InstructeursRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $instructeursData = $InstructeursRepository->findAll();
+            return $this->render('gestion/show_instructeurs.html.twig', [
+                "instructeurs" => $instructeursData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
     #[Route('/gestion/insertInstruc', name: 'instruc_create')]
     public function createInstruc(Request $request, InstructeursRepository $InstructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
     {
@@ -119,7 +133,7 @@ class GestionController extends AbstractController
                 $registration = $form->getData();
                 $em ->persist($registration);
                 $em->flush();
-                return $this->redirectToRoute('app_show_instruc');
+                return $this->redirectToRoute('app_show_instructeur');
             }
             return $this->render('gestion/insert_instruc.html.twig', [
                 'form' => $form->createView()
@@ -133,7 +147,7 @@ class GestionController extends AbstractController
     public function editInstructeurs(Request $request, InstructeursRepository $instructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $instructeurs = $instructeursRepository->findOneBy(["numInstructeurs" => $id]);
+            $instructeurs = $instructeursRepository->findOneBy(["numInstructeur" => $id]);
             $form = $this->createForm(InsertInstrucType::class, $instructeurs);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
@@ -141,7 +155,7 @@ class GestionController extends AbstractController
                 $registration = $form->getData();
                 $em ->persist($registration);
                 $em->flush();
-                return $this->redirectToRoute('app_show_instructeurs');
+                return $this->redirectToRoute('app_show_instructeur');
             }
             return $this->render('gestion/edit_instructeurs.html.twig', [
                 'form' => $form->createView()
@@ -155,7 +169,7 @@ class GestionController extends AbstractController
     public function deleteInstruc(Request $request, InstructeursRepository $instructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $Instructeurs = $instructeursRepository->findOneBy(["numInstructeurs" => $id]);
+            $Instructeurs = $instructeursRepository->findOneBy(["numInstructeur" => $id]);
             if($Instructeurs || $id != null) {
                 $entityManager->remove($Instructeurs);
                 $entityManager->flush();

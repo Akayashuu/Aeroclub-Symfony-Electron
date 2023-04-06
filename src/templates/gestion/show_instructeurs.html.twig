@@ -36,7 +36,7 @@
         </div>
         <div class="level-right">
             {% if isAdmin == 1 %}
-                <a href="{{ path('instructeurs_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+                <a href="{{ path('instruc_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% else %}
                 <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% endif %}
@@ -57,27 +57,28 @@
                 <th>Fax</th>
                 <th>E-mail</th>
                 <th>Numéro de badge</th>
-
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {% for av in avions %}
+            {% for av in instructeurs %}
             <tr>
-                <td>{{ in.numInstructeur }}</td>
-                <td>{{ in.nom }}</td>
-                <td>{{ in.prenom }}</td>
-                <td>{{ in.numCivil }}</td>
-                <td>{{ in.tauxInstructeur }}</td>
-                <td>{{ in.adresse }}</td>
-                <td>{{ in.codePostal }}</td>
-                <td>{{ in.ville }}</td>
-                <td>{{ in.tel }}</td>
-                <td>{{ in.fax }}</td>
-                <td>{{ av.immatriculation }}</td>
+                <td>{{ av.numInstructeur }}</td>
+                <td>{{ av.nom }}</td>
+                <td>{{ av.prenom }}</td>
+                <td>{{ av.numCivil }}</td>
+                <td>{{ av.tauxInstructeur }}</td>
+                <td>{{ av.adresse }}</td>
+                <td>{{ av.codePostal }}</td>
+                <td>{{ av.ville }}</td>
+                <td>{{ av.tel }}</td>
+                <td>{{ av.fax }}</td>
+                <td>{{ av.email }}</td>
+                <td>{{ av.numBadge }}</td>
                 <td><div class="field is-grouped">
                     {% if isAdmin == 1 %}
                             <div class="control">
-                                <a href="{{ path('avion_edit', {'id': av.numavions}) }}" class="button is-primary is-small">
+                                <a href="{{ path('instructeur_edit', {'id': av.numInstructeur}) }}" class="button is-primary is-small">
                                     <span class="icon is-small">
                                         <i class="fas fa-pen"></i>
                                     </span>
@@ -85,7 +86,7 @@
                                 </a>
                             </div>
                             <div class="control">
-                            <form action="{{ path('avion_delete', {'id': av.numavions}) }}" method="post" data-modal-target="delete-confirmation-modal">
+                            <form action="{{ path('instruc_delete', {'id': av.numInstructeur}) }}" method="post" data-modal-target="delete-confirmation-modal">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="button is-danger is-small" id="confirm-delete-button">
 
@@ -122,17 +123,18 @@
         <tfoot>
             <tr>
                 <th>Identifiant interne</th>
-                <th>Type d'avions</th>
-                <th>Taux</th>
-                <th>Forfait 1</th>
-                <th>Forfait 2</th>
-                <th>Forfait 3</th>
-                <th>Heures Forfait 1</th>
-                <th>Heures Forfait 2</th>
-                <th>Heures Forfait 3</th>
-                <th>Réduction semaine</th>
-                <th>Immatriculation</th>
-                <th>Actions</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Num Civil</th>
+                <th>Taux instructeur</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Fax</th>
+                <th>E-mail</th>
+                <th>Numéro de badge</th>
+                <th>Action</th>
             </tr>
         </tfoot>
     </table>
