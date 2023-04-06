@@ -207,6 +207,7 @@ class GestionController extends AbstractController
             {
                 $registration = $form->getData();
                 $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
+                $registration->setNumBadge($registration->getNumBadge()->getNumBadge());
                 $em ->persist($registration);
                 $em->flush();
                 return $this->redirectToRoute('app_show_membres');
@@ -223,8 +224,8 @@ class GestionController extends AbstractController
     public function editMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $avions = $membresRepository->findOneBy(["numMembres" => $id]);
-            $avions->setPassword("");
+           $avions = $membresRepository->findOneBy(["numMembres" => $id]);
+           $avions->setPassword("");
             $form = $this->createForm(InsertMembresFormType::class, $avions);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
