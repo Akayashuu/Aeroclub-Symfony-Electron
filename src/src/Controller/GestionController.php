@@ -37,7 +37,6 @@ class GestionController extends AbstractController
     public function showAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository): Response
     {
         if(CustomAuth::isConnected($request)) {
-            
             $avionsData = $avionsRepository->findAll();
             return $this->render('gestion/show_avions.html.twig', [
                 "avions" => $avionsData,
@@ -223,8 +222,8 @@ class GestionController extends AbstractController
     public function editMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $avions = $membresRepository->findOneBy(["numMembres" => $id]);
-            $avions->setPassword("");
+           $avions = $membresRepository->findOneBy(["numMembres" => $id]);
+           $avions->setPassword("");
             $form = $this->createForm(InsertMembresFormType::class, $avions);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())

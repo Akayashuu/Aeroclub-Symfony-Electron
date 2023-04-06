@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembresRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,13 +40,6 @@ class Membres
     #[ORM\Column(length: 20)]
     private ?string $email = null;
 
-    #[ORM\Column(name: "numBadge")]
-    #[ORM\ManyToOne(targetEntity:Badge::class, inversedBy:"membres")]
-    private ?int $numBadge = null;
-
-    #[ORM\Column(name: "numQualif")]
-    private ?int $numQualif = null;
-
     #[ORM\Column(length: 20)]
     private ?string $profession = null;
 
@@ -57,19 +52,19 @@ class Membres
     #[ORM\Column(type: Types::DATE_MUTABLE, name:"datenaissance")]
     private ?\DateTimeInterface $dateNaissance = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateattestation")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateattestation", nullable:true)]
     private ?\DateTimeInterface $dateAttestation = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriquebb")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriquebb", nullable:true)]
     private ?\DateTimeInterface $dateTheoriqueBB = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriqueppla")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriqueppla", nullable:true)]
     private ?\DateTimeInterface $dateTheoriquePPLA = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datebb")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datebb", nullable:true)]
     private ?\DateTimeInterface $dateBB = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateppla")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateppla", nullable:true)]
     private ?\DateTimeInterface $datePPLA = null;
 
     #[ORM\Column(length: 30, name:"numerobb")]
@@ -78,11 +73,19 @@ class Membres
     #[ORM\Column(length: 30, name:"numeroppla")]
     private ?string $numeroPPLA = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateinscription")]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateinscription", nullable:true)]
     private ?\DateTimeInterface $dateInscription = null;
 
     #[ORM\Column(length: 200)]
     private ?string $password = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numBadge", referencedColumnName:'numBadge')]
+    private ?Badge $numBadge = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numQualif", referencedColumnName:'numQualif')]
+    private ?Qualif $numQualif = null;
 
     public function getNumMembres(): ?int
     {
@@ -188,30 +191,6 @@ class Membres
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getNumBadge(): ?int
-    {
-        return $this->numBadge;
-    }
-
-    public function setNumBadge(int $numBadge): self
-    {
-        $this->numBadge = $numBadge;
-
-        return $this;
-    }
-
-    public function getNumQualif(): ?int
-    {
-        return $this->numQualif;
-    }
-
-    public function setNumQualif(int $numQualif): self
-    {
-        $this->numQualif = $numQualif;
 
         return $this;
     }
@@ -353,9 +332,9 @@ class Membres
         return $this->dateInscription;
     }
 
-    public function setDateInscription(\DateTimeInterface $dateInscription): self
+    public function setDateInscription(): self
     {
-        $this->dateInscription = $dateInscription;
+        $this->dateInscription = new \DateTime();
 
         return $this;
     }
@@ -368,6 +347,30 @@ class Membres
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNumBadge(): ?Badge
+    {
+        return $this->numBadge;
+    }
+
+    public function setNumBadge(?Badge $numBadge): self
+    {
+        $this->numBadge = $numBadge;
+
+        return $this;
+    }
+
+    public function getNumQualif(): ?Qualif
+    {
+        return $this->numQualif;
+    }
+
+    public function setNumQualif(?Qualif $numQualif): self
+    {
+        $this->numQualif = $numQualif;
 
         return $this;
     }

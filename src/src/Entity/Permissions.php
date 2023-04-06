@@ -10,32 +10,41 @@ class Permissions
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "nummembres")]
-    private ?int $numMembres = null;
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numMembres", referencedColumnName:'numMembres')]
+    private ?Membres $numMembres = null;
 
     #[ORM\Column]
-    private ?bool $IsAdmin = null;
+    private ?bool $isAdmin = null;
 
-    public function getNumMembres(): ?int
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNumMembre(): ?Membres
     {
         return $this->numMembres;
     }
 
-    public function setNumMembres(int $numMembres): self
+    public function setNumMembre(?Membres $numMembre): self
     {
-        $this->numMembres = $numMembres;
+        $this->numMembres = $numMembre;
 
         return $this;
     }
 
     public function isIsAdmin(): ?bool
     {
-        return $this->IsAdmin;
+        return $this->isAdmin;
     }
 
-    public function setIsAdmin(bool $IsAdmin): self
+    public function setIsAdmin(bool $isAdmin): self
     {
-        $this->IsAdmin = $IsAdmin;
+        $this->isAdmin = $isAdmin;
 
         return $this;
     }

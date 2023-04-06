@@ -43,8 +43,9 @@ class Instructeurs
     #[ORM\Column(length: 20)]
     private ?string $email = null;
 
-    #[ORM\Column(name: "numBadge")]
-    private ?int $numBadge = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numBadge", referencedColumnName:'numBadge')]
+    private ?Badge $numBadge = null;
 
     public function getNumInstructeur(): ?int
     {
@@ -178,12 +179,12 @@ class Instructeurs
         return $this;
     }
 
-    public function getNumBadge(): ?int
+    public function getNumBadge(): ?Badge
     {
         return $this->numBadge;
     }
 
-    public function setNumBadge(int $numBadge): self
+    public function setNumBadge(?Badge $numBadge): self
     {
         $this->numBadge = $numBadge;
 

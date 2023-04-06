@@ -191,14 +191,6 @@
                     </div>
                     <div class="column is-half">
                         <div class="field">
-                            <label class="label">Date D'inscription</label>
-                            <div class="control">
-                                {{ form_widget(form.dateInscription, {'attr': {'type': 'date', 'placeholder': 'Date Inscription'}}) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
                                 {{ form_widget(form.password, {'attr': {'class': 'input', 'placeholder': 'Mot de passe'}}) }}
@@ -206,7 +198,7 @@
                         </div>
                     </div>
                 </div>
-            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-plus"></i></span><span>Ajouter</span>', 'label_html':true  }) }}
+            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-pen"></i></span><span>Modifier</span>', 'label_html':true  }) }}
             {{ form_end(form) }}
         </div>
     {% endblock %}
