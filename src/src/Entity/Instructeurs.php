@@ -19,16 +19,16 @@ class Instructeurs
     #[ORM\Column(length: 20)]
     private ?string $prenom = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"numcivil")]
     private ?string $numCivil = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name:"tauxinstructeur")]
     private ?float $tauxInstructeur = null;
 
     #[ORM\Column(length: 200)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 6)]
+    #[ORM\Column(length: 6, name:"codepostal")]
     private ?string $codePostal = null;
 
     #[ORM\Column(length: 30)]

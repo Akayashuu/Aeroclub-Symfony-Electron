@@ -23,7 +23,7 @@ class Membres
     #[ORM\Column(length: 200)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 6)]
+    #[ORM\Column(length: 6, name:"codepostal")]
     private ?string $codePostal = null;
 
     #[ORM\Column(length: 30)]
@@ -39,6 +39,7 @@ class Membres
     private ?string $email = null;
 
     #[ORM\Column(name: "numBadge")]
+    #[ORM\ManyToOne(targetEntity:Badge::class, inversedBy:"membres")]
     private ?int $numBadge = null;
 
     #[ORM\Column(name: "numQualif")]
@@ -47,37 +48,37 @@ class Membres
     #[ORM\Column(length: 20)]
     private ?string $profession = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, name:"lieunaissance")]
     private ?string $lieuNaissance = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, name:"cartefederal")]
     private ?string $carteFederal = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datenaissance")]
     private ?\DateTimeInterface $dateNaissance = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateattestation")]
     private ?\DateTimeInterface $dateAttestation = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriquebb")]
     private ?\DateTimeInterface $dateTheoriqueBB = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datetheoriqueppla")]
     private ?\DateTimeInterface $dateTheoriquePPLA = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"datebb")]
     private ?\DateTimeInterface $dateBB = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateppla")]
     private ?\DateTimeInterface $datePPLA = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30, name:"numerobb")]
     private ?string $numeroBB = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30, name:"numeroppla")]
     private ?string $numeroPPLA = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name:"dateinscription")]
     private ?\DateTimeInterface $dateInscription = null;
 
     #[ORM\Column(length: 200)]

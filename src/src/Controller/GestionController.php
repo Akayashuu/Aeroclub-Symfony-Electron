@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Avions;
+use App\Entity\Membres;
 use App\Entity\Instructeurs;
 use App\Form\InsertAvionsFormType;
+use App\Form\InsertMembresFormType;
 use App\Form\InsertInstrucType;
 use App\Repository\AvionsRepository;
+use App\Repository\MembresRepository;
 use App\Repository\InstructeursRepository;
 use App\Repository\PermissionsRepository;
 use App\Security\CustomAuth;
@@ -81,7 +84,7 @@ class GestionController extends AbstractController
                 return $this->redirectToRoute('app_show_avions');
             }
             return $this->render('gestion/edit_avions.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
         } else {
             return $this->redirectToRoute('app_connexion');
@@ -105,6 +108,20 @@ class GestionController extends AbstractController
         }
     }
 
+    #[Route('/gestion/instructeurs', name: 'app_show_instructeur')]
+    public function showInstructeur(Request $request, InstructeursRepository $InstructeursRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $instructeursData = $InstructeursRepository->findAll();
+            return $this->render('gestion/show_instructeurs.html.twig', [
+                "instructeurs" => $instructeursData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
     #[Route('/gestion/insertInstruc', name: 'instruc_create')]
     public function createInstruc(Request $request, InstructeursRepository $InstructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
     {
@@ -116,7 +133,7 @@ class GestionController extends AbstractController
                 $registration = $form->getData();
                 $em ->persist($registration);
                 $em->flush();
-                return $this->redirectToRoute('app_show_instruc');
+                return $this->redirectToRoute('app_show_instructeur');
             }
             return $this->render('gestion/insert_instruc.html.twig', [
                 'form' => $form->createView()
@@ -130,7 +147,7 @@ class GestionController extends AbstractController
     public function editInstructeurs(Request $request, InstructeursRepository $instructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $instructeurs = $instructeursRepository->findOneBy(["numInstructeurs" => $id]);
+            $instructeurs = $instructeursRepository->findOneBy(["numInstructeur" => $id]);
             $form = $this->createForm(InsertInstrucType::class, $instructeurs);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
@@ -138,7 +155,7 @@ class GestionController extends AbstractController
                 $registration = $form->getData();
                 $em ->persist($registration);
                 $em->flush();
-                return $this->redirectToRoute('app_show_instructeurs');
+                return $this->redirectToRoute('app_show_instructeur');
             }
             return $this->render('gestion/edit_instructeurs.html.twig', [
                 'form' => $form->createView()
@@ -152,7 +169,7 @@ class GestionController extends AbstractController
     public function deleteInstruc(Request $request, InstructeursRepository $instructeursRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
-            $Instructeurs = $instructeursRepository->findOneBy(["numInstructeurs" => $id]);
+            $Instructeurs = $instructeursRepository->findOneBy(["numInstructeur" => $id]);
             if($Instructeurs || $id != null) {
                 $entityManager->remove($Instructeurs);
                 $entityManager->flush();
@@ -165,4 +182,81 @@ class GestionController extends AbstractController
         }
     }
 
+    #[Route('/gestion/membres', name: 'app_show_membres')]
+    public function showMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $membresData = $membresRepository->findAll();
+            return $this->render('gestion/show_membres.html.twig', [
+                "membres" => $membresData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+
+    #[Route('/gestion/insertMembres', name: 'membres_create')]
+    public function createMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $form = $this->createForm(InsertMembresFormType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_membres');
+            }
+            return $this->render('gestion/insert_membres.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editMembres/{id}', name: 'membres_edit')]
+    public function editMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $avions = $membresRepository->findOneBy(["numMembres" => $id]);
+            $avions->setPassword("");
+            $form = $this->createForm(InsertMembresFormType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_membres');
+            }
+            return $this->render('gestion/edit_membres.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/deleteMembres/{id}', name: 'membres_delete')]
+    public function deleteMembres(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $Avions = $membresRepository->findOneBy(["numMembres" => $id]);
+            if($Avions || $id != null) {
+                $entityManager->remove($Avions);
+                $entityManager->flush();
+                return new JsonResponse(array('success' => true));
+            } else {
+                return new JsonResponse(array('success' => false));
+            }
+        } else {
+            return new JsonResponse(array('success' => false));
+        }
+    }
 }

@@ -22,7 +22,9 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('modal', './assets/js/modal.js')
+    .addEntry('bulmaCalendar', './assets/js/datepicker.js')
     .addStyleEntry('Bulma', './assets/styles/sass/Bulma/bulmaStyles.scss')
+    .addStyleEntry('BulmaCalendarCss', './node_modules/bulma-calendar/dist/css/bulma-calendar.css')
     .addStyleEntry("connexion", './assets/styles/connexion.css')
     .addStyleEntry('config', './assets/styles/config.css')
     .addStyleEntry('accueil', './assets/styles/styleaccueil.css')
