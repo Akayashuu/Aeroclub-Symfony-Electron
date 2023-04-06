@@ -14,12 +14,6 @@ class ComptesAc
     #[ORM\Column(name: "numCompte")]
     private ?int $numCompte = null;
 
-    #[ORM\Column(name: "numMembres")]
-    private ?int $numMembres = null;
-
-    #[ORM\Column(name: "numSeq")]
-    private ?int $numSeq = null;
-
     #[ORM\Column(length: 200)]
     private ?string $description = null;
 
@@ -32,6 +26,13 @@ class ComptesAc
     #[ORM\Column]
     private ?float $credit = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numMembres", referencedColumnName:'numMembres')]
+    private ?membres $numMembres = null;
+
+    #[ORM\JoinColumn(nullable: false, name:"numSequence", referencedColumnName:'numSequence')]
+    private ?Sequence $numSequence = null;
+
     public function getNumCompte(): ?int
     {
         return $this->numCompte;
@@ -40,30 +41,6 @@ class ComptesAc
     public function setNumCompte(int $numCompte): self
     {
         $this->numCompte = $numCompte;
-
-        return $this;
-    }
-
-    public function getNumMembres(): ?int
-    {
-        return $this->numMembres;
-    }
-
-    public function setNumMembres(int $numMembres): self
-    {
-        $this->numMembres = $numMembres;
-
-        return $this;
-    }
-
-    public function getNumSeq(): ?int
-    {
-        return $this->numSeq;
-    }
-
-    public function setNumSeq(int $numSeq): self
-    {
-        $this->numSeq = $numSeq;
 
         return $this;
     }
@@ -112,6 +89,30 @@ class ComptesAc
     public function setCredit(float $credit): self
     {
         $this->credit = $credit;
+
+        return $this;
+    }
+
+    public function getNumMembres(): ?membres
+    {
+        return $this->numMembres;
+    }
+
+    public function setNumMembres(?membres $numMembres): self
+    {
+        $this->numMembres = $numMembres;
+
+        return $this;
+    }
+
+    public function getNumSequence(): ?Sequence
+    {
+        return $this->numSequence;
+    }
+
+    public function setNumSequence(?Sequence $numSequence): self
+    {
+        $this->numSequence = $numSequence;
 
         return $this;
     }

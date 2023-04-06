@@ -37,7 +37,6 @@ class GestionController extends AbstractController
     public function showAvions(Request $request, AvionsRepository $avionsRepository, PermissionsRepository $permissionsRepository): Response
     {
         if(CustomAuth::isConnected($request)) {
-            
             $avionsData = $avionsRepository->findAll();
             return $this->render('gestion/show_avions.html.twig', [
                 "avions" => $avionsData,
@@ -207,7 +206,6 @@ class GestionController extends AbstractController
             {
                 $registration = $form->getData();
                 $registration->setPassword(password_hash($registration->getPassword(), PASSWORD_DEFAULT));
-                $registration->setNumBadge($registration->getNumBadge()->getNumBadge());
                 $em ->persist($registration);
                 $em->flush();
                 return $this->redirectToRoute('app_show_membres');

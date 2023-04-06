@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Membres;
 use App\Entity\Badge;
 use App\Entity\Qualif;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType as TypeEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,8 +27,16 @@ class InsertMembresFormType extends AbstractType
             ->add('tel',  NumberType::class, ['required' => true])
             ->add('fax',  NumberType::class, ['required' => true])
             ->add('email',  TextType::class, ['required' => true])
-            ->add('numBadge',  NumberType::class, ['required' => true])
-            ->add('numQualif',  NumberType::class, ['required' => true])
+            ->add('numBadge', EntityType::class, [
+                'class' => Badge::class,
+                'choice_label' => 'numBadge', 
+                'required' => true
+            ])
+            ->add('numQualif', EntityType::class, [
+                'class' => Qualif::class,
+                'choice_label' => 'numQualif', 
+                'required' => true
+            ])
             ->add('profession',  TextType::class, ['required' => true])
             ->add('lieuNaissance',  TextType::class, ['required' => true])
             ->add('carteFederal',  TextType::class, ['required' => true])
@@ -44,7 +51,7 @@ class InsertMembresFormType extends AbstractType
                 ]
             ])
             ->add('dateAttestation',  DateType::class, [
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => [
@@ -54,7 +61,7 @@ class InsertMembresFormType extends AbstractType
                 ]
             ])
             ->add('dateTheoriqueBB',  DateType::class, [
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => [
@@ -64,7 +71,7 @@ class InsertMembresFormType extends AbstractType
                 ]
             ])
             ->add('dateTheoriquePPLA', DateType::class, [
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'html5' => true,
@@ -75,7 +82,7 @@ class InsertMembresFormType extends AbstractType
                 ]
             ])
             ->add('dateBB',  DateType::class, [
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => [
@@ -85,7 +92,7 @@ class InsertMembresFormType extends AbstractType
                 ]
             ])
             ->add('datePPLA',  DateType::class, [
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => [
@@ -96,16 +103,6 @@ class InsertMembresFormType extends AbstractType
             ])
             ->add('numeroBB',  TextType::class, ['required' => true])
             ->add('numeroPPLA',  TextType::class, ['required' => true])
-            ->add('dateInscription',  DateType::class, [
-                'required' => true,
-                'widget' => 'single_text',
-                'html5' => true,
-                'attr' => [
-                    'class' => 'input',
-                    'type' => 'date',
-                    'placeholder' => 'Date d\'inscription'
-                ]
-            ])
             ->add('password',  TextType::class, ['required' => true])
             ->add('save', SubmitType::class)
         ;

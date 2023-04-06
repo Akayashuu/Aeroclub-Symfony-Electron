@@ -56,6 +56,7 @@
                 <th>Numéro de badge</th>
                 <th>Numéro de qualification</th>
                 <th>Profession</th>
+                <th>Date d'inscription</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -70,9 +71,10 @@
                 <td>{{ av.tel }}</td>
                 <td>{{ av.fax }}</td>
                 <td>{{ av.email }}</td>
-                <td>{{ av.numbadge }}</td>
-                <td>{{ av.numqualif }}</td>
+                <td>{{ av.numbadge.numbadge }}</td>
+                <td>{{ av.numqualif.numqualif }}</td>
                 <td>{{ av.profession }}</td>
+                <td>{{ av.dateInscription | date("Y-m-d") }}</td>
                 <td><div class="field is-grouped">
                     {% if isAdmin == 1 %}
                             <div class="control">
@@ -131,6 +133,7 @@
                 <th>Numéro de badge</th>
                 <th>Numéro de qualification</th>
                 <th>Profession</th>
+                <th>Date d'inscription</th>
                 <th>Actions</th>
             </tr>
         </tfoot>

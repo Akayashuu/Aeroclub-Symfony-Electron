@@ -14,15 +14,6 @@ class Sequence
     #[ORM\Column(name:"numSequence")]
     private ?int $numSequence = null;
 
-    #[ORM\Column(name:"numMembres")]
-    private ?int $numMembres = null;
-
-    #[ORM\Column(name:"numInstructeur")]
-    private ?int $numInstructeur = null;
-
-    #[ORM\Column(name:"numAvions")]
-    private ?int $numAvions = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
@@ -38,7 +29,7 @@ class Sequence
     #[ORM\Column]
     private ?float $reductionSemaine = null;
 
-    #[ORM\Column(name:"numMotif")]
+    #[ORM\JoinColumn(nullable: false, name:"numMotif", referencedColumnName:'numMotif')]
     private ?int $numMotif = null;
 
     #[ORM\Column]
@@ -46,6 +37,18 @@ class Sequence
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $forfaitInitialisation = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numMembres", referencedColumnName:'numMembres')]
+    private ?Membres $numMembres = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numInstructeur", referencedColumnName:'numInstructeur')]
+    private ?Instructeurs $numInstructeur = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false, name:"numAvions", referencedColumnName:'numAvions')]
+    private ?Avions $numAvions = null;
 
     public function getNumSequence(): ?int
     {
@@ -55,42 +58,6 @@ class Sequence
     public function setNumSequence(int $numSequence): self
     {
         $this->numSequence = $numSequence;
-
-        return $this;
-    }
-
-    public function getNumMembres(): ?int
-    {
-        return $this->numMembres;
-    }
-
-    public function setNumMembres(int $numMembres): self
-    {
-        $this->numMembres = $numMembres;
-
-        return $this;
-    }
-
-    public function getNumInstructeur(): ?int
-    {
-        return $this->numInstructeur;
-    }
-
-    public function setNumInstructeur(int $numInstructeur): self
-    {
-        $this->numInstructeur = $numInstructeur;
-
-        return $this;
-    }
-
-    public function getNumAvions(): ?int
-    {
-        return $this->numAvions;
-    }
-
-    public function setNumAvions(int $numAvions): self
-    {
-        $this->numAvions = $numAvions;
 
         return $this;
     }
@@ -187,6 +154,42 @@ class Sequence
     public function setForfaitInitialisation(int $forfaitInitialisation): self
     {
         $this->forfaitInitialisation = $forfaitInitialisation;
+
+        return $this;
+    }
+
+    public function getNumMembres(): ?Membres
+    {
+        return $this->numMembres;
+    }
+
+    public function setNumMembres(?Membres $numMembres): self
+    {
+        $this->numMembres = $numMembres;
+
+        return $this;
+    }
+
+    public function getNumInstructeur(): ?Instructeurs
+    {
+        return $this->numInstructeur;
+    }
+
+    public function setNumInstructeur(?Instructeurs $numInstructeur): self
+    {
+        $this->numInstructeur = $numInstructeur;
+
+        return $this;
+    }
+
+    public function getNumAvions(): ?Avions
+    {
+        return $this->numAvions;
+    }
+
+    public function setNumAvions(?Avions $numAvions): self
+    {
+        $this->numAvions = $numAvions;
 
         return $this;
     }
