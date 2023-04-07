@@ -21,11 +21,14 @@ class Reservation
     private ?Membres $numMembres = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name:"numAvions", referencedColumnName:'numAvions', nullable:false)]
-    private ?Avions $numAvions = null;
+    #[ORM\JoinColumn(name:"numavions", referencedColumnName:'numavions', nullable:false)]
+    private ?Avions $numavions = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $endAt = null;
 
     public function getId(): ?int
     {
@@ -56,14 +59,14 @@ class Reservation
         return $this;
     }
 
-    public function getNumAvions(): ?Avions
+    public function getnumavions(): ?Avions
     {
-        return $this->numAvions;
+        return $this->numavions;
     }
 
-    public function setNumAvions(?Avions $numAvions): self
+    public function setnumavions(?Avions $numavions): self
     {
-        $this->numAvions = $numAvions;
+        $this->numavions = $numavions;
 
         return $this;
     }
@@ -76,6 +79,18 @@ class Reservation
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeImmutable
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(\DateTimeImmutable $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }

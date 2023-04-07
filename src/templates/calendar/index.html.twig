@@ -1,0 +1,19 @@
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {{ encore_entry_link_tags('calendarcss') }}
+    {{ encore_entry_script_tags('calendarjs') }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-four-fifths">
+                <div id="calendar-holder"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

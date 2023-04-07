@@ -4,7 +4,6 @@ html, body {
     line-height: 1.5;
     height: 100%;
     background: #ECF0F3;
-    background-image: url("/public/images/accueilaero2.jpg");
     background-size: 100% auto;
   }
   nav.navbar {
@@ -171,4 +170,6 @@ html, body {
   .label {
     color: white;
   }
+  
+
   

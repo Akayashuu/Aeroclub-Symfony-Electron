@@ -5,52 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Test</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('accueil') }}
-        {% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('accueil') }}
+    {% endblock %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bulma.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-        {% block javascripts %}
-            <script src="https://kit.fontawesome.com/15181efa86.js"></script>
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+    {% block javascripts %}
+        <script src="https://kit.fontawesome.com/15181efa86.js"></script>
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
 </head>
 <body>
-    <nav class="navbar is-white">
-        <div class="container">
-            <div class="navbar-brand">
-                <div class="navbar-burger burger" data-target="navMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div id="navMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="">
+<nav class="navbar is-white">
+   <div class="container">
+      <div class="navbar-brand">
+         <div class="navbar-burger burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+         </div>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+         <div class="navbar-start">
+            <a class="navbar-item" href="/accueil">
             Accueil
-          </a>
-                    <a class="navbar-item" href="/gestion">
+            </a>
+            <a class="navbar-item" href="/gestion">
             Gestion
-          </a>
-                    <a class="navbar-item" href="">
+            </a>
+            <a class="navbar-item" href="">
             Payments
-          </a>
-
-                </div>
-
-            </div>
-        </div>
-    </nav>        
-        {% block body %}
-        
-        {% endblock %}
-    </body>
+            </a>
+            <a class="navbar-item" href="/calendar">
+            Reservation
+            </a>
+         </div>
+      </div>
+   </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
 </html>
-
-
