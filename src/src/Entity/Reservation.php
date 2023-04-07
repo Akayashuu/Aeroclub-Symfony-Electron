@@ -27,6 +27,9 @@ class Reservation
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $endAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Reservation
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEndAt(): ?\DateTimeImmutable
+    {
+        return $this->endAt;
+    }
+
+    public function setEndAt(\DateTimeImmutable $endAt): self
+    {
+        $this->endAt = $endAt;
 
         return $this;
     }

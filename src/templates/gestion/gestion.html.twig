@@ -1,56 +1,8 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Test</title>
-        {% block stylesheets %}
-            
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {% block content %}
             {{ encore_entry_link_tags('accueil') }}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-        {% endblock %}
-
-        {% block javascripts %}
-            <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-</head>
-
-<body>
-
-    <!-- START NAV -->
-    <nav class="navbar is-white">
-        <div class="container">
-            <div class="navbar-brand">
-                <div class="navbar-burger burger" data-target="navMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div id="navMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="./accueil">
-            Accueil
-          </a>
-                    <a class="navbar-item" href="/gestion">
-            Gestion
-          </a>
-                    <a class="navbar-item" href="">
-            Payments
-          </a>
-
-                </div>
-
-            </div>
-        </div>
-    </nav>
     <!-- END NAV -->
     <div class="container">
         <div class="columns">
@@ -69,8 +21,6 @@
                         <li><a href="/gestion">Edition des relevés de fin de mois</a></li>
                         <li><a href="/gestion">Gestion du bilan de fin de mois</a></li>
                     </ul>
-                  
-                    
                 </aside>
             </div>
             <div class="column is-9">
@@ -96,6 +46,5 @@
         </div>
     </div>
     <script async type="text/javascript" src="../js/bulma.js"></script>
-</body>
-
-</html>
+    {% endblock %}
+{% endblock %}
