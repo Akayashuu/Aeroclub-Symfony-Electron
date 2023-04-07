@@ -21,36 +21,34 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
 </head>
 <body>
-    <nav class="navbar is-white">
-        <div class="container">
-            <div class="navbar-brand">
-                <div class="navbar-burger burger" data-target="navMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <div id="navMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="">
+   <nav class="navbar is-white">
+   <div class="container">
+      <div class="navbar-brand">
+         <div class="navbar-burger burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+         </div>
+      </div>
+      <div id="navMenu" class="navbar-menu">
+         <div class="navbar-start">
+            <a class="navbar-item" href="/accueil">
             Accueil
-          </a>
-                    <a class="navbar-item" href="/gestion">
+            </a>
+            <a class="navbar-item" href="/gestion">
             Gestion
-          </a>
-                    <a class="navbar-item" href="">
+            </a>
+            <a class="navbar-item" href="">
             Payments
-          </a>
-
-                </div>
-
-            </div>
-        </div>
-    </nav>        
-        {% block body %}
-        
-        {% endblock %}
-    </body>
-</html>
+            </a>
+            <a class="navbar-item" href="/calendar">
+            Reservation
+            </a>
+         </div>
+      </div>
+   </div>
+</nav>
+    {% block body %}
+{% endblock %}
 
 

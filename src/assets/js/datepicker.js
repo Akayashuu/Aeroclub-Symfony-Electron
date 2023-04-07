@@ -1,5 +1,4 @@
 import bulmaCalendar from "bulma-calendar";
-import {} from "bulma-calendar"
 
 
 // Récupérer tous les éléments de formulaire avec le type "date"

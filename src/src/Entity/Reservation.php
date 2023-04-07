@@ -21,8 +21,8 @@ class Reservation
     private ?Membres $numMembres = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name:"numAvions", referencedColumnName:'numAvions', nullable:false)]
-    private ?Avions $numAvions = null;
+    #[ORM\JoinColumn(name:"numavions", referencedColumnName:'numavions', nullable:false)]
+    private ?Avions $numavions = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -56,14 +56,14 @@ class Reservation
         return $this;
     }
 
-    public function getNumAvions(): ?Avions
+    public function getnumavions(): ?Avions
     {
-        return $this->numAvions;
+        return $this->numavions;
     }
 
-    public function setNumAvions(?Avions $numAvions): self
+    public function setnumavions(?Avions $numavions): self
     {
-        $this->numAvions = $numAvions;
+        $this->numavions = $numavions;
 
         return $this;
     }
