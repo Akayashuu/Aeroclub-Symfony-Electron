@@ -9,11 +9,13 @@ use App\Form\InsertAvionsFormType;
 use App\Form\InsertMembresFormType;
 use App\Form\InsertInstrucType;
 use App\Form\InsertBadgeType;
+use App\Form\InsertQualifType;
 use App\Repository\AvionsRepository;
 use App\Repository\BadgeRepository;
 use App\Repository\MembresRepository;
 use App\Repository\InstructeursRepository;
 use App\Repository\PermissionsRepository;
+use App\Repository\QualifRepository;
 use App\Security\CustomAuth;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -335,4 +337,83 @@ class GestionController extends AbstractController
             return new JsonResponse(array('success' => false));
         }
     }
+
+//
+    #[Route('/gestion/qualif', name: 'app_show_qualif')]
+    public function showQualif(Request $request, QualifRepository $qualifRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $qualifData = $qualifRepository->findAll();
+            return $this->render('gestion/qualif/show_qualif.html.twig', [
+                "qualif" => $qualifData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+
+    #[Route('/gestion/insertQualif', name: 'qualif_create')]
+    public function createQualif(Request $request, QualifRepository $qualifRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $form = $this->createForm(InsertQualifType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_qualif');
+            }
+            return $this->render('gestion/qualif/insert_qualif.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editQualif/{id}', name: 'qualif_edit')]
+    public function editQualif(Request $request, QualifRepository $qualifRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+        $avions = $qualifRepository->findOneBy(["numQualif" => $id]);
+            $form = $this->createForm(InsertQualifType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_qualif');
+            }
+            return $this->render('gestion/qualif/edit_qualif.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/deleteQualif/{id}', name: 'qualif_delete')]
+    public function deleteQualif(Request $request, QualifRepository $qualifRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $Avions = $qualifRepository->findOneBy(["numQualif" => $id]);
+            if($Avions || $id != null) {
+                $entityManager->remove($Avions);
+                $entityManager->flush();
+                return new JsonResponse(array('success' => true));
+            } else {
+                return new JsonResponse(array('success' => false));
+            }
+        } else {
+            return new JsonResponse(array('success' => false));
+        }
+    }
+
+
+
 }
