@@ -52,6 +52,7 @@
     <table id="myTable" class="table is-striped is-hoverable is-fullwidth">
         <thead>
             <tr>
+                <th>État</th>
                 <th>Identifiant interne</th>
                 <th>Date Prévu</th>
                 <th>Date de Fin</th>
@@ -63,10 +64,35 @@
         <tbody>
             {% for av in reservation %}
             <tr>
+                {% if date(av.endAt) < date() %}
+                    <td><button class="button is-danger is-small" style="width: 150px;">
+                            <span class="icon is-small">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span>Séquence finie</span>
+                        </button>
+                    </td>
+                {% elseif date(av.endAt) > date() and date(av.scheduledAt) < date() %} 
+                    <td><button class="button is-warning is-small" style="width: 150px;">
+                            <span class="icon is-small">
+                                <i class="fas fa-spinner"></i>
+                            </span>
+                            <span>Séquence en cours</span>
+                        </button>
+                    </td>
+                {% else %} 
+                    <td><button class="button is-success is-small" style="width: 150px;">
+                            <span class="icon is-small">
+                                <i class="fas fa-exclamation"></i>
+                            </span>
+                            <span>Séquence non commencée</span>
+                        </button>
+                    </td>
+                {% endif %}
                 <td>{{ av.id }}</td>
                 <td>{{ av.scheduledAt | date("y/m/d - H:i") }}</td>
                 <td>{{ av.endAt | date("y/m/d - H:i")}}</td>
-                <td>{{ av.nummembres.nom }} {{ av.nummembres.prenom }}</td>
+                <td>[{{av.nummembres.nummembres}}] {{ av.nummembres.nom }} {{ av.nummembres.prenom }}</td>
                 <td>{{ av.numavions.TypeAvion }} - {{ av.numavions.name }} </td>
                 <td><div class="field is-grouped">
                     {% if isAdmin == 1 %}
@@ -115,6 +141,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th>État</th>
                 <th>Identifiant interne</th>
                 <th>Date Prévu</th>
                 <th>Date de Fin</th>

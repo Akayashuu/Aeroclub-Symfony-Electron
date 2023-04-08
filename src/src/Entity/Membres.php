@@ -123,6 +123,11 @@ class Membres
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return "[ Membre nuémro : ".$this->numMembres." ] ".$this->nom ." ". $this->prenom;
+    }
+
     public function getAdresse(): ?string
     {
         return $this->adresse;

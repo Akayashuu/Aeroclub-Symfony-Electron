@@ -30,7 +30,7 @@ class ReservationFormType extends AbstractType
             ])
             ->add('numMembres', EntityType::class, [
                 'class' => Membres::class,
-                'choice_label' => 'nom', 
+                'choice_label' => 'name', 
                 'required' => true
             ])
             ->add('numavions', EntityType::class, [
