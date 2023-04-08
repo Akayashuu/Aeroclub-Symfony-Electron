@@ -1,0 +1,25 @@
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {% block content %}
+    <style>
+        input::placeholder {
+            color: gray !important;
+        }
+    </style>
+       <div class="container">
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Badge</label>
+                            <div class="control">
+                                {{ form_widget(form.badge, {'attr': {'class': 'input', 'placeholder': 'Badge'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-pen"></i></span><span>Modifier</span>', 'label_html':true  }) }}
+            {{ form_end(form) }}
+        </div>
+    {% endblock %}
+{% endblock %}

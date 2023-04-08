@@ -8,7 +8,9 @@ use App\Entity\Instructeurs;
 use App\Form\InsertAvionsFormType;
 use App\Form\InsertMembresFormType;
 use App\Form\InsertInstrucType;
+use App\Form\InsertBadgeType;
 use App\Repository\AvionsRepository;
+use App\Repository\BadgeRepository;
 use App\Repository\MembresRepository;
 use App\Repository\InstructeursRepository;
 use App\Repository\PermissionsRepository;
@@ -38,7 +40,7 @@ class GestionController extends AbstractController
     {
         if(CustomAuth::isConnected($request)) {
             $avionsData = $avionsRepository->findAll();
-            return $this->render('gestion/show_avions.html.twig', [
+            return $this->render('gestion/avions/show_avions.html.twig', [
                 "avions" => $avionsData,
                 "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
             ]);
@@ -60,7 +62,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_avions');
             }
-            return $this->render('gestion/insert_avions.html.twig', [
+            return $this->render('gestion/avions/insert_avions.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
@@ -82,7 +84,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_avions');
             }
-            return $this->render('gestion/edit_avions.html.twig', [
+            return $this->render('gestion/avions/edit_avions.html.twig', [
                 'form' => $form->createView(),
             ]);
         } else {
@@ -112,7 +114,7 @@ class GestionController extends AbstractController
     {
         if(CustomAuth::isConnected($request)) {
             $instructeursData = $InstructeursRepository->findAll();
-            return $this->render('gestion/show_instructeurs.html.twig', [
+            return $this->render('gestion/instructeur/show_instructeurs.html.twig', [
                 "instructeurs" => $instructeursData,
                 "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
             ]);
@@ -134,7 +136,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_instructeur');
             }
-            return $this->render('gestion/insert_instruc.html.twig', [
+            return $this->render('gestion/instructeur/insert_instruc.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
@@ -156,7 +158,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_instructeur');
             }
-            return $this->render('gestion/edit_instructeurs.html.twig', [
+            return $this->render('gestion/instructeur/edit_instructeurs.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
@@ -186,7 +188,7 @@ class GestionController extends AbstractController
     {
         if(CustomAuth::isConnected($request)) {
             $membresData = $membresRepository->findAll();
-            return $this->render('gestion/show_membres.html.twig', [
+            return $this->render('gestion/membres/show_membres.html.twig', [
                 "membres" => $membresData,
                 "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
             ]);
@@ -210,7 +212,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_membres');
             }
-            return $this->render('gestion/insert_membres.html.twig', [
+            return $this->render('gestion/membres/insert_membres.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
@@ -234,7 +236,7 @@ class GestionController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('app_show_membres');
             }
-            return $this->render('gestion/edit_membres.html.twig', [
+            return $this->render('gestion/membres/edit_membres.html.twig', [
                 'form' => $form->createView(),
             ]);
         } else {
@@ -247,6 +249,81 @@ class GestionController extends AbstractController
     {
         if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
             $Avions = $membresRepository->findOneBy(["numMembres" => $id]);
+            if($Avions || $id != null) {
+                $entityManager->remove($Avions);
+                $entityManager->flush();
+                return new JsonResponse(array('success' => true));
+            } else {
+                return new JsonResponse(array('success' => false));
+            }
+        } else {
+            return new JsonResponse(array('success' => false));
+        }
+    }
+
+    #[Route('/gestion/badge', name: 'app_show_badges')]
+    public function showBadges(Request $request, BadgeRepository $badgeRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $BadgesData = $badgeRepository->findAll();
+            return $this->render('gestion/badge/show_badge.html.twig', [
+                "badges" => $BadgesData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+
+    #[Route('/gestion/insertBadge', name: 'badge_create')]
+    public function createBadge(Request $request, BadgeRepository $badgeRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $form = $this->createForm(InsertBadgeType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_badges');
+            }
+            return $this->render('gestion/badge/insert_badge.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editBadge/{id}', name: 'badge_edit')]
+    public function editBadge(Request $request, BadgeRepository $badgeRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+           $avions = $badgeRepository->findOneBy(["numBadge" => $id]);
+            $form = $this->createForm(InsertBadgeType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_badges');
+            }
+            return $this->render('gestion/badge/edit_badge.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/deleteBadges/{id}', name: 'badge_delete')]
+    public function deleteBadge(Request $request, BadgeRepository $badgeRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $Avions = $badgeRepository->findOneBy(["numBadge" => $id]);
             if($Avions || $id != null) {
                 $entityManager->remove($Avions);
                 $entityManager->flush();
