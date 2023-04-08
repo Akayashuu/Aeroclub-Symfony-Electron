@@ -9,11 +9,13 @@ use App\Form\InsertAvionsFormType;
 use App\Form\InsertMembresFormType;
 use App\Form\InsertInstrucType;
 use App\Form\InsertBadgeType;
+use App\Form\InsertMotifType;
 use App\Form\InsertQualifType;
 use App\Repository\AvionsRepository;
 use App\Repository\BadgeRepository;
 use App\Repository\MembresRepository;
 use App\Repository\InstructeursRepository;
+use App\Repository\MotifsRepository;
 use App\Repository\PermissionsRepository;
 use App\Repository\QualifRepository;
 use App\Security\CustomAuth;
@@ -338,7 +340,6 @@ class GestionController extends AbstractController
         }
     }
 
-//
     #[Route('/gestion/qualif', name: 'app_show_qualif')]
     public function showQualif(Request $request, QualifRepository $qualifRepository, PermissionsRepository $permissionsRepository): Response
     {
@@ -415,5 +416,80 @@ class GestionController extends AbstractController
     }
 
 
+    //
+    #[Route('/gestion/motif', name: 'app_show_motif')]
+    public function showMotif(Request $request, MotifsRepository $motifsRepository, PermissionsRepository $permissionsRepository): Response
+    {
+        if(CustomAuth::isConnected($request)) {
+            $qualifData = $motifsRepository->findAll();
+            return $this->render('gestion/motif/show_motif.html.twig', [
+                "motif" => $qualifData,
+                "isAdmin" =>CustomAuth::isAdmin($request, $permissionsRepository)
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+
+    #[Route('/gestion/insertMotif', name: 'motif_create')]
+    public function createMotif(Request $request,  MotifsRepository $motifsRepository,PermissionsRepository $permissionsRepository, EntityManagerInterface $em): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $form = $this->createForm(InsertMotifType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_motif');
+            }
+            return $this->render('gestion/motif/insert_motif.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editMotif/{id}', name: 'motif_edit')]
+    public function editMotif(Request $request, MotifsRepository $motifsRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+        $avions = $motifsRepository->findOneBy(["numMotif" => $id]);
+            $form = $this->createForm(InsertMotifType::class, $avions);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_motif');
+            }
+            return $this->render('gestion/motif/edit_motif.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/deleteMotif/{id}', name: 'motif_delete')]
+    public function deleteMotif(Request $request, MotifsRepository $motifsRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $entityManager, $id): Response
+    {
+        if(CustomAuth::isConnected($request) && CustomAuth::isAdmin($request, $permissionsRepository)) {
+            $Avions = $motifsRepository->findOneBy(["numMotif" => $id]);
+            if($Avions || $id != null) {
+                $entityManager->remove($Avions);
+                $entityManager->flush();
+                return new JsonResponse(array('success' => true));
+            } else {
+                return new JsonResponse(array('success' => false));
+            }
+        } else {
+            return new JsonResponse(array('success' => false));
+        }
+    }
 
 }
