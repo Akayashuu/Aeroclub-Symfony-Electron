@@ -39,6 +39,44 @@ class ReservationRepository extends ServiceEntityRepository
         }
     }
 
+    public function checkAvionReservationConflict(\DateTime $scheduledAt, \DateTime $endAt, int $numavions): bool
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->andWhere($qb->expr()->eq('r.numavions', ':numavions'))
+        ->andWhere($qb->expr()->orX(
+            $qb->expr()->andX(
+                $qb->expr()->lte('r.scheduledAt', ':scheduledAt'),
+                $qb->expr()->gte('r.endAt', ':scheduledAt')
+            ),
+            $qb->expr()->andX(
+                $qb->expr()->lte('r.scheduledAt', ':endAt'),
+                $qb->expr()->gte('r.endAt', ':endAt')
+            )
+        ))
+        ->setParameter('numavions', $numavions)
+        ->setParameter('scheduledAt', $scheduledAt)
+        ->setParameter('endAt', $endAt);
+
+        $result = $qb->getQuery()->getResult();
+
+        return count($result) > 0;
+    }
+
+    public function checkMembreReservationConflict(\DateTime $scheduledAt, \DateTime $endAt, int $numMembres): bool
+    {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb->andWhere('r.numMembres = :numMembres')
+            ->setParameter('numMembres', $numMembres)
+            ->andWhere('((r.scheduledAt >= :scheduledAt AND r.scheduledAt < :endAt) OR (r.endAt > :scheduledAt AND r.endAt <= :endAt) OR (r.scheduledAt <= :scheduledAt AND r.endAt >= :endAt))')
+            ->setParameter('scheduledAt', $scheduledAt)
+            ->setParameter('endAt', $endAt);
+
+        $result = $qb->getQuery()->getResult();
+
+        return count($result) > 0;
+    }
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */
