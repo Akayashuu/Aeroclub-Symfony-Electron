@@ -32,72 +32,33 @@
 <div class="container">
     <div class="level">
         <div class="level-left">
-            <h1 class="title">Liste des Reservations</h1>
+            <h1 class="title">Liste des motifs</h1>
         </div>
         <div class="level-right">
             {% if isAdmin == 1 %}
-                <a href="{{ path('app_insert_calendar') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+                <a href="{{ path('motif_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% else %}
                 <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% endif %}
         </div>
     </div>
-                        {% for label, messages in app.flashes %}
-                        {% for message in messages %}
-                            <div class="notification is-danger">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
     <table id="myTable" class="table is-striped is-hoverable is-fullwidth">
         <thead>
             <tr>
-                <th>État</th>
                 <th>Identifiant interne</th>
-                <th>Date Prévu</th>
-                <th>Date de Fin</th>
-                <th>Membres</th>
-                <th>Avions</th>
+                <th>Motif</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for av in reservation %}
+            {% for av in motif %}
             <tr>
-                {% if date(av.endAt) < date() %}
-                    <td><button class="button is-danger is-small" style="width: 150px;">
-                            <span class="icon is-small">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            <span>Séquence finie</span>
-                        </button>
-                    </td>
-                {% elseif date(av.endAt) > date() and date(av.scheduledAt) < date() %} 
-                    <td><button class="button is-warning is-small" style="width: 150px;">
-                            <span class="icon is-small">
-                                <i class="fas fa-spinner"></i>
-                            </span>
-                            <span>Séquence en cours</span>
-                        </button>
-                    </td>
-                {% else %} 
-                    <td><button class="button is-success is-small" style="width: 150px;">
-                            <span class="icon is-small">
-                                <i class="fas fa-exclamation"></i>
-                            </span>
-                            <span>Séquence non commencée</span>
-                        </button>
-                    </td>
-                {% endif %}
-                <td>{{ av.id }}</td>
-                <td>{{ av.scheduledAt | date("y/m/d - H:i") }}</td>
-                <td>{{ av.endAt | date("y/m/d - H:i")}}</td>
-                <td>[{{av.nummembres.nummembres}}] {{ av.nummembres.nom }} {{ av.nummembres.prenom }}</td>
-                <td>{{ av.numavions.TypeAvion }} - {{ av.numavions.name }} </td>
+                <td>{{ av.numMotif }}</td>
+                <td>{{ av.motif }}</td>
                 <td><div class="field is-grouped">
                     {% if isAdmin == 1 %}
                             <div class="control">
-                                <a href="{{ path('app_edit_calendar', {'id': av.id}) }}" class="button is-primary is-small">
+                                <a href="{{ path('motif_edit', {'id': av.numMotif}) }}" class="button is-primary is-small">
                                     <span class="icon is-small">
                                         <i class="fas fa-pen"></i>
                                     </span>
@@ -105,7 +66,7 @@
                                 </a>
                             </div>
                             <div class="control">
-                            <form action="{{ path('app_delete_calendar', {'id': av.id}) }}" method="post" data-modal-target="delete-confirmation-modal">
+                            <form action="{{ path('motif_delete', {'id': av.numMotif}) }}" method="post" data-modal-target="delete-confirmation-modal">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="button is-danger is-small" id="confirm-delete-button">
 
@@ -141,12 +102,8 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>État</th>
                 <th>Identifiant interne</th>
-                <th>Date Prévu</th>
-                <th>Date de Fin</th>
-                <th>Membres</th>
-                <th>Avions</th>
+                <th>Motif</th>
                 <th>Actions</th>
             </tr>
         </tfoot>

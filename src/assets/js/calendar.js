@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     var calendarEl = document.getElementById('calendar-holder');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        customButtons: {
+            myCustomButton: {
+              text: 'Reservations',
+              click: function() {
+                window.location.href = "/calendar/show"
+              }
+            }
+          },
         themeSystem: 'bootstrap5',
         defaultView: 'dayGridMonth',
         eventSources: [
@@ -17,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
         ],
         header: {
-            left: 'prev,next today',
+            left: 'prev,next today, myCustomButton',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
