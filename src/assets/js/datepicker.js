@@ -1,21 +1,22 @@
 import bulmaCalendar from "bulma-calendar";
 
-
-// Récupérer tous les éléments de formulaire avec le type "date"
-var dateInputs = document.querySelectorAll('[type="date"]');
-
-// Boucle sur tous les éléments de formulaire avec le type "date"
-for (var i = 0; i < dateInputs.length; i++) {
-  var calendar = bulmaCalendar.attach(dateInputs[i], {
+var datetimeInputs = document.querySelectorAll('[type="datetime-local"]');
+for (var i = 0; i < datetimeInputs.length; i++) {
+    let t = null 
+    if(datetimeInputs[i].value) {
+       t = new Date(datetimeInputs[i].value);
+    }
+    var calendar = bulmaCalendar.attach(datetimeInputs[i], {
         dateFormat: 'yyyy-MM-dd',
+        timeFormat: 'HH:mm',
         color: 'primary',
         isRange: false,
         allowSameDayRange: true,
         lang: 'fr-FR',
-        startDate: undefined,
-        endDate: undefined,
         minDate: null,
         maxDate: null,
+        startDate:t,
+        startTime:t, 
         disabledDates: [],
         disabledWeekDays: undefined,
         highlightedDates: [],
@@ -23,8 +24,7 @@ for (var i = 0; i < dateInputs.length; i++) {
         enableMonthSwitch: true,
         enableYearSwitch: true,
         displayYearsCount: 50,
-        displayMode:"dialog",
-  });
+        displayMode: "dialog",
+        type: 'datetime'
+    });
 }
-
-

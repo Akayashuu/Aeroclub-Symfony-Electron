@@ -14,7 +14,7 @@ class Reservation
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $scheduledAt = null;
+    private ?\DateTime $scheduledAt = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name:"numMembres", referencedColumnName:'numMembres', nullable:false)]
@@ -24,23 +24,23 @@ class Reservation
     #[ORM\JoinColumn(name:"numavions", referencedColumnName:'numavions', nullable:false)]
     private ?Avions $numavions = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(options:["default"=> "CURRENT_TIMESTAMP"])]
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $endAt = null;
+    private ?\DateTime $endAt = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getScheduledAt(): ?\DateTimeImmutable
+    public function getScheduledAt(): ?\DateTime
     {
         return $this->scheduledAt;
     }
 
-    public function setScheduledAt(\DateTimeImmutable $scheduledAt): self
+    public function setScheduledAt(\DateTime $scheduledAt): self
     {
         $this->scheduledAt = $scheduledAt;
 
@@ -71,24 +71,24 @@ class Reservation
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getEndAt(): ?\DateTimeImmutable
+    public function getEndAt(): ?\DateTime
     {
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $endAt): self
+    public function setEndAt(\DateTime $endAt): self
     {
         $this->endAt = $endAt;
 

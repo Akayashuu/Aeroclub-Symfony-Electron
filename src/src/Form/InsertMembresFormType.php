@@ -6,7 +6,7 @@ use App\Entity\Membres;
 use App\Entity\Badge;
 use App\Entity\Qualif;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -40,7 +40,7 @@ class InsertMembresFormType extends AbstractType
             ->add('profession',  TextType::class, ['required' => true])
             ->add('lieuNaissance',  TextType::class, ['required' => true])
             ->add('carteFederal',  TextType::class, ['required' => true])
-            ->add('dateNaissance',  DateType::class, [
+            ->add('dateNaissance',  DateTimeType::class, [
                 'required' => true,
                 'widget' => 'single_text',
                 'html5' => true,
@@ -50,7 +50,7 @@ class InsertMembresFormType extends AbstractType
                     'placeholder' => 'Date De Naissance'
                 ]
             ])
-            ->add('dateAttestation',  DateType::class, [
+            ->add('dateAttestation',  DateTimeType::class, [
                 'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
@@ -60,7 +60,7 @@ class InsertMembresFormType extends AbstractType
                     'placeholder' => 'Date D\'Attestation'
                 ]
             ])
-            ->add('dateTheoriqueBB',  DateType::class, [
+            ->add('dateTheoriqueBB',  DateTimeType::class, [
                 'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
@@ -70,10 +70,9 @@ class InsertMembresFormType extends AbstractType
                     'placeholder' => 'Date Théorique du BB'
                 ]
             ])
-            ->add('dateTheoriquePPLA', DateType::class, [
+            ->add('dateTheoriquePPLA', DateTimeType::class, [
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
                 'html5' => true,
                 'attr' => [
                     'class' => 'input',
@@ -81,7 +80,7 @@ class InsertMembresFormType extends AbstractType
                     'placeholder' => 'Date Théorique du PPLA'
                 ]
             ])
-            ->add('dateBB',  DateType::class, [
+            ->add('dateBB',  DateTimeType::class, [
                 'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,
@@ -91,7 +90,7 @@ class InsertMembresFormType extends AbstractType
                     'placeholder' => 'Date du BB'
                 ]
             ])
-            ->add('datePPLA',  DateType::class, [
+            ->add('datePPLA',  DateTimeType::class, [
                 'required' => false,
                 'widget' => 'single_text',
                 'html5' => true,

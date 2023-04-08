@@ -1,0 +1,50 @@
+{% extends 'layout/gestion_header.html.twig' %}
+{% block body %}
+    {% block content %}
+    {{ encore_entry_script_tags('bulmaCalendar') }}
+    {{ encore_entry_link_tags('BulmaCalendarCss') }}
+    <style>
+        input::placeholder {
+            color: gray !important;
+        }
+    </style>
+       <div class="container">
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Heure de départ</label>
+                            <div class="control">
+                                {{ form_widget(form.scheduledAt, {'attr': {'type': 'datetime-local',  'placeholder': 'Heure de départ'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Heure de fin</label>
+                            <div class="control">
+                                {{ form_widget(form.endAt, {'attr': {'type': 'datetime-local',  'placeholder': 'Heure de fin'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Membres</label>
+                            <div class="control">
+                                {{ form_widget(form.numMembres, {'attr': {'class': 'input', 'placeholder': 'Membre'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Avions</label>
+                            <div class="control">
+                                {{ form_widget(form.numavions, {'attr': {'class': 'input', 'placeholder': 'Avions'}}) }}
+                            </div>
+                        </div>
+                    </div>
+            {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-plus"></i></span><span>Ajouter</span>', 'label_html':true  }) }}
+            {{ form_end(form) }}
+        </div>
+    {% endblock %}
+{% endblock %}
