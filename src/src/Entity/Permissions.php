@@ -20,6 +20,18 @@ class Permissions
     #[ORM\Column]
     private ?bool $isAdmin = null;
 
+    #[ORM\Column]
+    private ?bool $canWrite = null;
+
+    #[ORM\Column]
+    private ?bool $canRead = null;
+
+    #[ORM\Column]
+    private ?bool $canUpdate = null;
+
+    #[ORM\Column]
+    private ?bool $canDelete = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +57,54 @@ class Permissions
     public function setIsAdmin(bool $isAdmin): self
     {
         $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    public function isCanWrite(): ?bool
+    {
+        return $this->canWrite;
+    }
+
+    public function setCanWrite(bool $canWrite): self
+    {
+        $this->canWrite = $canWrite;
+
+        return $this;
+    }
+
+    public function isCanRead(): ?bool
+    {
+        return $this->canRead;
+    }
+
+    public function setCanRead(bool $canRead): self
+    {
+        $this->canRead = $canRead;
+
+        return $this;
+    }
+
+    public function isCanUpdate(): ?bool
+    {
+        return $this->canUpdate;
+    }
+
+    public function setCanUpdate(bool $canUpdate): self
+    {
+        $this->canUpdate = $canUpdate;
+
+        return $this;
+    }
+
+    public function isCanDelete(): ?bool
+    {
+        return $this->canDelete;
+    }
+
+    public function setCanDelete(bool $canDelete): self
+    {
+        $this->canDelete = $canDelete;
 
         return $this;
     }

@@ -21,9 +21,7 @@ class ConnexionController extends AbstractController
     #[Route('/', name: 'app_connexion')]
     public function index(Request $request, ManagerRegistry $em, MembresRepository $membresRepository): Response
     {
-        if(CustomAuth::isConnected($request)){
-            return $this->redirectToRoute('app_accueil');
-        }
+        if(CustomAuth::isConnected($request)){return $this->redirectToRoute('app_accueil');}
         if(DatabaseLogic::envCheck() || DatabaseLogic::isConnected($em)) {
             $form = $this->createForm(ApplicationConfigFormType::class);
             $form->handleRequest($request);
