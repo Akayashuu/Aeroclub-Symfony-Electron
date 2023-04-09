@@ -35,7 +35,7 @@
             <h1 class="title">Liste des instructeurs</h1>
         </div>
         <div class="level-right">
-            {% if isAdmin == 1 %}
+            {% if isAdmin == 0 %}
                 <a href="{{ path('instruc_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% else %}
                 <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
@@ -76,7 +76,7 @@
                 <td>{{ av.email }}</td>
                 <td>{{ av.numbadge.numbadge }}</td>
                 <td><div class="field is-grouped">
-                    {% if isAdmin == 1 %}
+                    {% if isAdmin == 0 %}
                             <div class="control">
                                 <a href="{{ path('instructeur_edit', {'id': av.numInstructeur}) }}" class="button is-primary is-small">
                                     <span class="icon is-small">

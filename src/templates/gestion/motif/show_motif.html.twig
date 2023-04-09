@@ -35,7 +35,7 @@
             <h1 class="title">Liste des motifs</h1>
         </div>
         <div class="level-right">
-            {% if isAdmin == 1 %}
+            {% if isAdmin == 0 %}
                 <a href="{{ path('motif_create') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
             {% else %}
                 <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
@@ -56,7 +56,7 @@
                 <td>{{ av.numMotif }}</td>
                 <td>{{ av.motif }}</td>
                 <td><div class="field is-grouped">
-                    {% if isAdmin == 1 %}
+                    {% if isAdmin == 0 %}
                             <div class="control">
                                 <a href="{{ path('motif_edit', {'id': av.numMotif}) }}" class="button is-primary is-small">
                                     <span class="icon is-small">

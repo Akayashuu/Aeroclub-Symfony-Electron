@@ -3,6 +3,7 @@
 
 namespace App\Security;
 
+use App\Entity\Permissions;
 use App\Repository\MembresRepository;
 use App\Repository\PermissionsRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,12 +74,18 @@ class CustomAuth {
         return (isset($_COOKIE["auth"]) && isset($jwt) && $jwt == $_COOKIE["auth"]);
     }
     
-    static function isAdmin(Request $request, PermissionsRepository $permissionsRepository) {
+    static function hasPermission($t, array $requiredPermission, Request $request, PermissionsRepository $permissionsRepository) {
         $session = $request->getSession();
         $memberId = $session->get("userid");
-        $data = $permissionsRepository->findOneBy([
-            "numMembres" => $memberId
-        ]); 
-        return $data != null ? $data->isIsAdmin() : false;
+        $permission = $permissionsRepository->findOneBy(["numMembres" => $memberId]); 
+        if($permission != null) {if($permission->isIsAdmin()) {return true;}};
+        if($permission == null) {return false;}
+        foreach($requiredPermission as $perm) {
+            $k = "is".$perm;
+            if(!$permission->$k()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

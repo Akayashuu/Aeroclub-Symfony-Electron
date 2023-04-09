@@ -96,18 +96,6 @@ html, body {
     border-top: 10px solid turquoise;
   }
   
-  footer {
-    color: white;
-    background: rgb(14, 14, 14) !important;
-  }
-  
-  footer strong {
-    color: turquoise;
-  }
-  
-  footer a {
-    color: turquoise;
-  }
   
   .title {
     color: white;
@@ -172,4 +160,6 @@ html, body {
   }
   
 
-  
+html {
+  background-color: #ecf0f3 !important;
+}
