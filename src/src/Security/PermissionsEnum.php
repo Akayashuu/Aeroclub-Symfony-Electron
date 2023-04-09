@@ -3,6 +3,12 @@
 
 namespace App\Security;
 
+use App\Entity\Permissions;
+use App\Repository\PermissionsRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
+
 
 abstract class PermissionsEnum
 {
