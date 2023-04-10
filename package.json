@@ -5,6 +5,7 @@
     "description": "",
     "main": "main.js",
     "scripts": {
+        "build-msi": "electron-builder --win --x64 --ia32 && electron-wix-msi --input=./dist/win-unpacked --output=./dist --name=Aeroclub",
         "start": "electron main.js"
     },
     "license": "MIT",

@@ -1,0 +1,119 @@
+{% extends 'layout/gestion_header.html.twig' %}
+
+{% block body %}
+    {{ encore_entry_script_tags('modal') }}
+<div id="delete-confirmation-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-danger has-text-white">
+            <p class="modal-card-title has-text-white">Confirmation de suppression</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>Êtes-vous sûr de vouloir supprimer cet élément ? Cette action ne peut pas être annulée.</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-danger" id="confirm-delete-modal-button">Supprimer</button>
+            <button class="button" id="cancel-delete-modal-button">Annuler</button>
+        </footer>
+    </div>
+</div>
+
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box has-background-danger has-text-white">
+      <p class="has-text-white">Erreur de permission</p>
+      <p class="has-text-white">Vous n'avez pas les droits nécessaires pour accéder à cette page.</p>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<div class="container">
+    <div class="level">
+        <div class="level-left">
+            <h1 class="title">Liste des pieces</h1>
+        </div>
+        <div class="level-right">
+            {% if isAdmin == 0 %}
+                <a href="{{ path('app_maintenance_insert') }}" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+            {% else %}
+                <a data-target="modal-js-example" id="js-modal-trigger" class="button is-success"><i class="fas fa-plus"></i>&nbsp;Ajouter</a>
+            {% endif %}
+        </div>
+    </div>
+    <table id="pieces" class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for piece in pieces %}
+                <tr>
+                    <td>{{ piece.label }}</td>
+                    <td>{{ piece.quantity }}</td>
+                    <td>{{ piece.description }}</td>
+                    <td><div class="field is-grouped">
+                    {% if isAdmin == 0 %}
+                            <div class="control">
+                                <a href="{{ path('pieces_edit', {'id': piece.id}) }}" class="button is-primary is-small">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <span>Modifier</span>
+                                </a>
+                            </div>
+                            <div class="control">
+                            <form action="{{ path('pieces_delete', {'id': piece.id}) }}" method="post" data-modal-target="delete-confirmation-modal">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="button is-danger is-small" id="confirm-delete-button">
+
+                                        <span class="icon is-small">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span>Supprimer</span>
+                                    </button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="control">
+                                <a data-target="modal-js-example" id="js-modal-trigger" class="button is-primary is-small">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                    <span>Modifier</span>
+                                </a>
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-danger is-small" data-target="modal-js-example" id="js-modal-trigger" >
+                                    <span class="icon is-small">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span>Supprimer</span>
+                                </button>
+                            </div>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#pieces').DataTable();
+        });
+    </script>
+{% endblock %}

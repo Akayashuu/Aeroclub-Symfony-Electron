@@ -1,0 +1,81 @@
+{% extends 'layout/gestion_header.html.twig' %}
+
+{% block body %}
+    {% block content %}
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Administrateur</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.isAdmin, {'attr': {'class': 'checkbox'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Ecriture</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.canWrite, {'attr': {'class': 'checkbox'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Lecture</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.canRead, {'attr': {'class': 'checkbox'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Modification</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.canUpdate, {'attr': {'class': 'checkbox'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Suppression</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.canDelete, {'attr': {'class': 'checkbox'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.save, {'attr': {'class': 'button is-primary'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+        </div>
+    {% endblock %}
+{% endblock %}

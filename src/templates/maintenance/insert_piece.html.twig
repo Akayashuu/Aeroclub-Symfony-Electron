@@ -1,0 +1,43 @@
+{% extends 'layout/gestion_header.html.twig' %}
+
+{% block body %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">Ajouter une pièce de maintenance</h1>
+            <hr>
+                {{ form_start(form) }}
+                <div class="field">
+                    <label class="label" for="{{ form.label.vars.id }}">Nom</label>
+                    <div class="control">
+                        {{ form_widget(form.label, {'attr': {'class': 'input'} }) }}
+                    </div>
+                    <p class="help is-danger">{{ form_errors(form.label) }}</p>
+                </div>
+                <div class="field">
+                    <label class="label" for="{{ form.quantity.vars.id }}">Quantité</label>
+                    <div class="control">
+                        {{ form_widget(form.quantity, {'attr': {'class': 'input'} }) }}
+                    </div>
+                    <p class="help is-danger">{{ form_errors(form.quantity) }}</p>
+                </div>
+                <div class="field">
+                    <label class="label" for="{{ form.description.vars.id }}">Description</label>
+                    <div class="control">
+                        {{ form_widget(form.description, {'attr': {'class': 'textarea'} }) }}
+                    </div>
+                    <p class="help is-danger">{{ form_errors(form.description) }}</p>
+                </div>
+                <div class="field">
+                    <label class="label" for="{{ form.image.vars.id }}">Image</label>
+                    <div class="control">
+                        {{ form_widget(form.image, {'attr': {'class': 'input'} }) }}
+                    </div>
+                    <p class="help is-danger">{{ form_errors(form.image) }}</p>
+                </div>
+                <div class="field">
+                    {{ form_widget(form.save, {'attr':{'class':'button is-success'}, 'label': '<span class="icon is-small"><i class="fas fa-plus"></i></span><span>Ajouter</span>', 'label_html':true  }) }}
+                </div>
+                {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
