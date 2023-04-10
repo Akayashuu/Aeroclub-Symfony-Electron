@@ -19,10 +19,10 @@ class MaintenancePieces
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $image = null;
 
     public function getId(): ?int
@@ -59,7 +59,7 @@ class MaintenancePieces
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string|null $description): self
     {
         $this->description = $description;
 
@@ -71,7 +71,7 @@ class MaintenancePieces
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string|null $image): self
     {
         $this->image = $image;
 
