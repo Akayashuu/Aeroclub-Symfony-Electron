@@ -11,6 +11,7 @@ use App\Form\InsertInstrucType;
 use App\Form\InsertBadgeType;
 use App\Form\InsertMotifType;
 use App\Form\InsertQualifType;
+use App\Form\PermMembresType;
 use App\Repository\AvionsRepository;
 use App\Repository\BadgeRepository;
 use App\Repository\MembresRepository;
@@ -207,6 +208,29 @@ class GestionController extends AbstractController
                 "membres" => $membresData,
                 "isAdmin" => $v
                 
+            ]);
+        } else {
+            return $this->redirectToRoute('app_connexion');
+        }
+    }
+
+    #[Route('/gestion/editMembresPerm/{id}', name: 'membres_edit_perm')]
+    public function editMembresPerm(Request $request, MembresRepository $membresRepository, PermissionsRepository $permissionsRepository, EntityManagerInterface $em, $id): Response
+    {
+        if($v = !CustomAuth::hasPermission($this, [PermissionsEnum::ADMIN], $request, $permissionsRepository)) {return $this->redirectToRoute(PermissionsEnum::REDIRECT_ROUTE);}
+        if(CustomAuth::isConnected($request)) {
+            $perm = $permissionsRepository->findOneBy(["numMembres" => $id]);
+            $form = $this->createForm(PermMembresType::class, $perm);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $registration = $form->getData();
+                $em ->persist($registration);
+                $em->flush();
+                return $this->redirectToRoute('app_show_membres');
+            }
+            return $this->render('gestion/membres/edit_perm.html.twig', [
+                'form' => $form->createView(),
             ]);
         } else {
             return $this->redirectToRoute('app_connexion');
