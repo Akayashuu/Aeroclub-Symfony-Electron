@@ -17,7 +17,6 @@ To install this application, please follow the steps below:
 * npm run build    
 3. Build the application:   
 * npx electron-builder build    
-4. Add php in environment variables
 
 ## Requirements
 
