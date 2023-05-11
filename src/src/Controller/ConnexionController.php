@@ -17,11 +17,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Service\EnvManager;
 use DateTime;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConnexionController extends AbstractController
 {
-    #[Route('/pass/${email}', name: 'app_connexion_pass')]
-    public function passwordVerify(Request $request, ManagerRegistry $em, MembresRepository $membresRepository, EntityManagerInterface $emv, $email): Response
+    #[Route('/pass', name: 'app_connexion_pass')]
+    public function passwordVerify(Request $request, ManagerRegistry $em, MembresRepository $membresRepository, EntityManagerInterface $emv): Response
     {
         if(CustomAuth::isConnected($request)){return $this->redirectToRoute('app_accueil');}
         if(DatabaseLogic::envCheck() || DatabaseLogic::isConnected($em)) {
@@ -43,7 +44,10 @@ class ConnexionController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
             {
+
                 $result = $form->getData();
+                $session = $request->getSession();
+                $email = $session->get('email');
                 $authLogic = new CustomAuth($result["password"],  $email, $membresRepository, $request);
                 $data = $authLogic->getMembresData();
                 $banned = false;
@@ -79,7 +83,7 @@ class ConnexionController extends AbstractController
                             $emv->persist($k);
                             $emv->flush();
                             $this->addFlash('notice', "Erreur ! Votre mot de passe est incorrect.".$msg);
-                            return $this->redirectToRoute('app_connexion_pass', ["email"=> $email]);
+                            return $this->redirectToRoute('app_connexion_pass');
                         }
                 }
             }
@@ -113,7 +117,10 @@ class ConnexionController extends AbstractController
             if ($form->isSubmitted() && $form->isValid())
             {
                 $result = $form->getData();
-                return $this->redirectToRoute('app_connexion_pass', ["email"=> $result["email"]]);
+                $email = $result["email"];
+                $session = $request->getSession();
+                $session->set('email', $email);
+                return $this->redirectToRoute('app_connexion_pass');
             }
             return $this->render('connexion/mailcon.html.twig', ['form' => $form->createView()]);
         }
