@@ -42,7 +42,7 @@ class MembresRepository extends ServiceEntityRepository
     public function findByEmailAuth($email)
     {
         return $this->createQueryBuilder('me')
-            ->select('me.email','me.password', 'me.numMembres')
+            ->select('me.email','me.password', 'me.numMembres', 'me.nbTentatives', 'me.banTime')
             ->where('me.email = :email')
             ->setParameter('email', $email)
             ->getQuery()

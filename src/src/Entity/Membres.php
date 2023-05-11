@@ -87,6 +87,12 @@ class Membres
     #[ORM\JoinColumn(nullable: false, name:"numQualif", referencedColumnName:'numQualif')]
     private ?Qualif $numQualif = null;
 
+    #[ORM\Column]
+    private ?int $nbTentatives = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $banTime = null;
+
     public function getNumMembres(): ?int
     {
         return $this->numMembres;
@@ -376,6 +382,30 @@ class Membres
     public function setNumQualif(?Qualif $numQualif): self
     {
         $this->numQualif = $numQualif;
+
+        return $this;
+    }
+
+    public function getNbTentatives(): ?int
+    {
+        return $this->nbTentatives;
+    }
+
+    public function setNbTentatives(int $nbTentatives): self
+    {
+        $this->nbTentatives = $nbTentatives;
+
+        return $this;
+    }
+
+    public function getBanTime(): ?\DateTimeInterface
+    {
+        return $this->banTime;
+    }
+
+    public function setBanTime(?\DateTimeInterface $banTime): self
+    {
+        $this->banTime = $banTime;
 
         return $this;
     }

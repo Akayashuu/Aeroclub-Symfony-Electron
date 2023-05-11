@@ -16,7 +16,7 @@ class CustomAuth {
     private string $raw_password;
     private string $hashed_password;
     private string $email;
-    private MembresRepository $membreRepository;
+    public MembresRepository $membreRepository;
     private Request $request;
     private mixed $data;
 
@@ -54,7 +54,12 @@ class CustomAuth {
         return $response->send();
     }
     
+    public function getMembresData() {
+        return $this->data;
+    }
+
     public function authentification() {
+        if($this->data == null) return false;
         return (password_verify($this->raw_password, $this->data["password"]) && $this->email == $this->data["email"]) ? true : false;
     }
 
